@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Plus, X, Download } from 'lucide-react';
-import { fetchUnits, fetchPredictionStrip } from '../services/api';
-import type { UnitItem, StripItem } from '../types/api';
+import { fetchUnits, fetchPredictionStrip, fetchRegionDetail } from '../services/api';
+import type { UnitItem, StripItem, RegionDetail } from '../types/api';
+import { getTranslation, formatDateLocale, type SupportedLanguage } from '../i18n';
 
 interface ComparePageProps {
   currentRegionId: string;
+  lang?: SupportedLanguage;
 }
 
 interface LocationComparison {
@@ -13,18 +15,24 @@ interface LocationComparison {
   strip: StripItem[];
 }
 
-export const ComparePage: React.FC<ComparePageProps> = ({ currentRegionId }) => {
+export const ComparePage: React.FC<ComparePageProps> = ({ currentRegionId, lang = 'en' }) => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const [region, setRegion] = useState<RegionDetail | null>(null);
   const [units, setUnits] = useState<UnitItem[]>([]);
   const [selectedLocations, setSelectedLocations] = useState<LocationComparison[]>([]);
   const [selectedUnitToAdd, setSelectedUnitToAdd] = useState<string>('');
   const [loading, setLoading] = useState(false);
 
+  const t = getTranslation(lang);
+  const cmpT = t.compare || {};
+  const offT = t.officer || {};
+
   // URL state
   const locParams = searchParams.get('locs') ? searchParams.get('locs')!.split(',') : [];
 
-  // Load units
+  // Load region and units
   useEffect(() => {
+    fetchRegionDetail(currentRegionId).then(setRegion).catch(console.error);
     fetchUnits(currentRegionId, 'panchayat')
       .then((uList) => {
         setUnits(uList);
@@ -79,7 +87,7 @@ export const ComparePage: React.FC<ComparePageProps> = ({ currentRegionId }) => 
     if (!selectedUnitToAdd) return;
     if (locParams.includes(selectedUnitToAdd)) return;
     if (locParams.length >= 5) {
-      alert('You can compare a maximum of 5 locations simultaneously.');
+      alert(cmpT.max_locations_note || 'You can compare a maximum of 5 locations simultaneously.');
       return;
     }
     updateUrlLocs([...locParams, selectedUnitToAdd]);
@@ -92,7 +100,12 @@ export const ComparePage: React.FC<ComparePageProps> = ({ currentRegionId }) => 
   const exportComparisonCSV = () => {
     if (!selectedLocations.length) return;
     const dates = selectedLocations[0]?.strip.map((s) => s.date) || [];
-    const headers = ['Panchayat ID', 'Name', 'Block', ...dates.map((d) => `Rain ${d} (mm)`)];
+    const headers = [
+      offT.panchayat_col || 'Panchayat ID',
+      'Name',
+      offT.block_col || 'Block',
+      ...dates.map((d) => `Rain ${d} (mm)`)
+    ];
     const rows = selectedLocations.map((loc) => [
       loc.unit.id,
       `"${loc.unit.name}"`,
@@ -100,7 +113,7 @@ export const ComparePage: React.FC<ComparePageProps> = ({ currentRegionId }) => 
       ...loc.strip.map((s) => (s.rainfall?.prediction || 0).toFixed(1))
     ]);
 
-    const csvContent = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows.map((r) => r.join(','))].join('\n');
+    const csvContent = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows.map((e) => e.join(','))].join('\n');
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement('a');
     link.setAttribute('href', encodedUri);
@@ -114,16 +127,18 @@ export const ComparePage: React.FC<ComparePageProps> = ({ currentRegionId }) => 
     <div className="km-page km-compare-page">
       <div className="km-container km-page-header">
         <div>
-          <h2 className="km-page-title">Multi-Panchayat Weather Comparison</h2>
+          <h2 className="km-page-title">{cmpT.page_title || 'Multi-Panchayat Weather Comparison'}</h2>
           <p className="km-page-sub">
-            Side-by-side contrast of downscaled forecasts across up to 5 panchayats or blocks.
+            {cmpT.page_subtitle
+              ? cmpT.page_subtitle.replace('{{district}}', region?.district || currentRegionId)
+              : `Side-by-side contrast of downscaled forecasts across up to 5 panchayats or blocks in ${region?.district || currentRegionId}.`}
           </p>
         </div>
 
         <div className="km-header-actions">
           <button type="button" className="km-btn km-btn-outline" onClick={exportComparisonCSV}>
             <Download size={15} />
-            <span>Export Comparison CSV</span>
+            <span>{cmpT.export_comparison || 'Export Comparison CSV'}</span>
           </button>
         </div>
       </div>
@@ -132,7 +147,7 @@ export const ComparePage: React.FC<ComparePageProps> = ({ currentRegionId }) => 
       <div className="km-container km-compare-toolbar">
         <div className="km-picker-row">
           <div className="km-field">
-            <label htmlFor="cmp-add" className="km-label-sm">Add Panchayat to Comparison:</label>
+            <label htmlFor="cmp-add" className="km-label-sm">{cmpT.add_location || 'Add Panchayat to Comparison'}:</label>
             <select
               id="cmp-add"
               className="km-select km-select-sm"
@@ -153,7 +168,7 @@ export const ComparePage: React.FC<ComparePageProps> = ({ currentRegionId }) => 
             disabled={locParams.length >= 5}
           >
             <Plus size={15} />
-            <span>Add to Compare</span>
+            <span>{cmpT.add_location || 'Add to Compare'}</span>
           </button>
         </div>
 
@@ -166,7 +181,7 @@ export const ComparePage: React.FC<ComparePageProps> = ({ currentRegionId }) => 
                 type="button"
                 className="km-chip-del-btn"
                 onClick={() => handleRemoveLocation(loc.unit.id)}
-                title="Remove location"
+                title={cmpT.remove_loc || 'Remove location'}
               >
                 <X size={12} />
               </button>
@@ -180,12 +195,12 @@ export const ComparePage: React.FC<ComparePageProps> = ({ currentRegionId }) => 
         {loading ? (
           <div className="km-loading-box">
             <div className="km-spinner"></div>
-            <p>Gathering multi-location forecasts...</p>
+            <p>{t.common?.loading || 'Gathering multi-location forecasts...'}</p>
           </div>
         ) : selectedLocations.length === 0 ? (
           <div className="km-empty-card">
-            <h4>No Panchayats Selected</h4>
-            <p>Use the selector above to add panchayats to the comparison matrix.</p>
+            <h4>{cmpT.no_locations || 'No Panchayats Selected'}</h4>
+            <p>{cmpT.select_panchayat_placeholder || 'Use the selector above to add panchayats to the comparison matrix.'}</p>
           </div>
         ) : (
           selectedLocations.map((loc) => {
@@ -203,6 +218,7 @@ export const ComparePage: React.FC<ComparePageProps> = ({ currentRegionId }) => 
                     type="button"
                     className="km-cc-close"
                     onClick={() => handleRemoveLocation(loc.unit.id)}
+                    title={cmpT.remove_loc || 'Remove'}
                   >
                     <X size={14} />
                   </button>
@@ -210,11 +226,11 @@ export const ComparePage: React.FC<ComparePageProps> = ({ currentRegionId }) => 
 
                 <div className="km-cc-kpis">
                   <div className="km-cc-kpi">
-                    <span className="km-cc-klabel">5-Day Total Rain</span>
+                    <span className="km-cc-klabel">{t.insights?.kpi_mean_rain || '5-Day Total Rain'}</span>
                     <span className="km-cc-knum">{totalRain.toFixed(1)} mm</span>
                   </div>
                   <div className="km-cc-kpi">
-                    <span className="km-cc-klabel">Peak Day</span>
+                    <span className="km-cc-klabel">{t.insights?.kpi_max_rain || 'Peak Day'}</span>
                     <span className="km-cc-knum">{peakRain.toFixed(1)} mm</span>
                   </div>
                 </div>
@@ -223,7 +239,7 @@ export const ComparePage: React.FC<ComparePageProps> = ({ currentRegionId }) => 
                 <div className="km-cc-strip">
                   {loc.strip.map((s, idx) => (
                     <div key={idx} className="km-cc-strip-item">
-                      <span className="km-cc-sdate">{s.date.slice(5)}</span>
+                      <span className="km-cc-sdate">{formatDateLocale(s.date, lang).split(' ')[0]}</span>
                       <span className="km-cc-srain">{(s.rainfall?.prediction || 0).toFixed(1)} mm</span>
                       <span className="km-cc-sprob">{Math.round((s.rainfall?.rain_probability || 0) * 100)}%</span>
                       <span className="km-cc-stemp">{(s.temp_max?.prediction || 30).toFixed(0)}° / {(s.temp_min?.prediction || 20).toFixed(0)}°</span>
@@ -239,15 +255,15 @@ export const ComparePage: React.FC<ComparePageProps> = ({ currentRegionId }) => 
       {/* Comparison Matrix Table */}
       {selectedLocations.length > 0 && (
         <div className="km-container km-compare-table-container">
-          <h3 className="km-section-title">Comparative Numerical Matrix</h3>
+          <h3 className="km-section-title">{cmpT.page_title || 'Comparative Numerical Matrix'}</h3>
           <table className="km-table">
             <thead>
               <tr>
-                <th>Location</th>
-                <th>Block</th>
+                <th>{cmpT.col_location || 'Location'}</th>
+                <th>{cmpT.col_block || 'Block'}</th>
                 {selectedLocations[0]?.strip.map((s, i) => (
                   <th key={i} className="km-text-right">
-                    Day +{i + 1} ({s.date.slice(5)})
+                    Day +{i + 1} ({formatDateLocale(s.date, lang).split(' ')[0]})
                   </th>
                 ))}
                 <th className="km-text-right">5-Day Total</th>
@@ -264,7 +280,7 @@ export const ComparePage: React.FC<ComparePageProps> = ({ currentRegionId }) => 
                       <td key={i} className="km-text-right km-cell-num">
                         <strong>{(s.rainfall?.prediction || 0).toFixed(1)} mm</strong>
                         <div className="km-text-muted" style={{ fontSize: '11px' }}>
-                          {Math.round((s.rainfall?.rain_probability || 0) * 100)}% rain | {(s.temp_max?.prediction || 30).toFixed(0)}°C
+                          {Math.round((s.rainfall?.rain_probability || 0) * 100)}% | {(s.temp_max?.prediction || 30).toFixed(0)}°C
                         </div>
                       </td>
                     ))}

@@ -154,3 +154,171 @@ crops:
       boll_development:
         heat_max_c: 37.0
         min_moisture_pct: 50.0
+
+  maize:
+    name: "Maize (Corn)"
+    stages:
+      sowing:
+        heat_max_c: 35.0
+        min_moisture_pct: 50.0
+      vegetative:
+        heat_max_c: 36.0
+        min_moisture_pct: 45.0
+      tasseling:
+        heat_max_c: 34.0
+        min_moisture_pct: 60.0
+      silking:
+        heat_max_c: 33.0
+        min_moisture_pct: 65.0
+      grain_filling:
+        heat_max_c: 35.0
+        min_moisture_pct: 45.0
+      maturity:
+        heat_max_c: 38.0
+        min_moisture_pct: 25.0
+
+  soybean:
+    name: "Soybean"
+    stages:
+      sowing:
+        heat_max_c: 34.0
+        min_moisture_pct: 50.0
+      vegetative:
+        heat_max_c: 35.0
+        min_moisture_pct: 45.0
+      flowering:
+        heat_max_c: 32.5
+        min_moisture_pct: 55.0
+      pod_filling:
+        heat_max_c: 34.0
+        min_moisture_pct: 50.0
+      maturity:
+        heat_max_c: 36.0
+        min_moisture_pct: 25.0
+
+  sugarcane:
+    name: "Sugarcane"
+    stages:
+      germination:
+        heat_max_c: 37.0
+        min_moisture_pct: 60.0
+      tillering:
+        heat_max_c: 38.0
+        min_moisture_pct: 55.0
+      grand_growth:
+        heat_max_c: 36.0
+        min_moisture_pct: 70.0
+      maturity_ripening:
+        heat_max_c: 34.0
+        min_moisture_pct: 35.0
+
+  chickpea:
+    name: "Chickpea (Gram)"
+    stages:
+      sowing:
+        heat_max_c: 30.0
+        min_moisture_pct: 40.0
+      vegetative:
+        heat_max_c: 28.0
+        min_moisture_pct: 35.0
+      flowering:
+        heat_max_c: 27.0
+        min_moisture_pct: 45.0
+      pod_development:
+        heat_max_c: 29.0
+        min_moisture_pct: 35.0
+      maturity:
+        heat_max_c: 33.0
+        min_moisture_pct: 20.0
+
+  sorghum:
+    name: "Sorghum (Jowar)"
+    stages:
+      sowing:
+        heat_max_c: 38.0
+        min_moisture_pct: 35.0
+      vegetative:
+        heat_max_c: 39.0
+        min_moisture_pct: 30.0
+      flowering:
+        heat_max_c: 36.0
+        min_moisture_pct: 45.0
+      grain_filling:
+        heat_max_c: 38.0
+        min_moisture_pct: 35.0
+      maturity:
+        heat_max_c: 41.0
+        min_moisture_pct: 20.0
+
+  tomato:
+    name: "Tomato"
+    stages:
+      nursery:
+        heat_max_c: 32.0
+        min_moisture_pct: 65.0
+      vegetative:
+        heat_max_c: 34.0
+        min_moisture_pct: 55.0
+      flowering:
+        heat_max_c: 31.0
+        min_moisture_pct: 60.0
+      fruiting:
+        heat_max_c: 33.0
+        min_moisture_pct: 60.0
+      harvesting:
+        heat_max_c: 35.0
+        min_moisture_pct: 40.0
+
+  onion:
+    name: "Onion"
+    stages:
+      nursery:
+        heat_max_c: 32.0
+        min_moisture_pct: 60.0
+      vegetative:
+        heat_max_c: 34.0
+        min_moisture_pct: 50.0
+      bulb_formation:
+        heat_max_c: 33.0
+        min_moisture_pct: 55.0
+      maturity:
+        heat_max_c: 36.0
+        min_moisture_pct: 25.0
+
+  potato:
+    name: "Potato"
+    stages:
+      sprouting:
+        heat_max_c: 25.0
+        min_moisture_pct: 60.0
+      vegetative:
+        heat_max_c: 26.0
+        min_moisture_pct: 55.0
+      tuberization:
+        heat_max_c: 22.0
+        min_moisture_pct: 65.0
+      bulking:
+        heat_max_c: 24.0
+        min_moisture_pct: 60.0
+      maturity:
+        heat_max_c: 28.0
+        min_moisture_pct: 30.0
+
+  sunflower:
+    name: "Sunflower"
+    stages:
+      vegetative:
+        heat_max_c: 36.0
+        min_moisture_pct: 40.0
+      bud_formation:
+        heat_max_c: 34.0
+        min_moisture_pct: 50.0
+      flowering:
+        heat_max_c: 33.0
+        min_moisture_pct: 55.0
+      seed_filling:
+        heat_max_c: 35.0
+        min_moisture_pct: 45.0
+      maturity:
+        heat_max_c: 38.0
+        min_moisture_pct: 25.0

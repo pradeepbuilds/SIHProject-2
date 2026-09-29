@@ -2,11 +2,11 @@
   "model_name": "rainfall",
   "region_id": "ka-tumakuru",
   "library_versions": {
-    "pandas": "3.0.3",
-    "numpy": "2.4.4",
+    "pandas": "2.3.3",
+    "numpy": "2.3.5",
     "scikit-learn": "1.8.0",
     "lightgbm": "4.7.0",
-    "joblib": "1.5.3",
+    "joblib": "1.5.2",
     "shapely": "2.1.2"
   },
   "features": [
@@ -43,7 +43,7 @@
   ],
   "train_locations_hash": "19474f4cd6e3",
   "train_locations_count": 72,
-  "trained_at": "2026-09-28T06:18:04.748209+00:00",
+  "trained_at": "2026-09-29T10:46:51.494335+00:00",
   "n_jobs": 2,
   "model_type": "hurdle_classifier_and_quantile_amount",
   "rain_day_mm": 1.0

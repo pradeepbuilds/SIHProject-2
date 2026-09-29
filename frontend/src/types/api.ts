@@ -283,3 +283,33 @@ export interface GeoJSONFeatureCollection {
   notice?: string;
   data_mode?: Record<string, string>;
 }
+
+export type UserRole = 'farmer' | 'officer';
+
+export interface AuthUser {
+  id: string;
+  name: string;
+  role: UserRole;
+  phone?: string;
+  email?: string;
+  regionId: string;
+  panchayatId?: string;
+  selectedCrop?: string;
+  selectedStage?: string;
+  designation?: string;
+  department?: string;
+  isDemo: boolean;
+}
+
+export interface CropStageInfo {
+  heat_max_c: number;
+  min_moisture_pct: number;
+}
+
+export interface CropInfo {
+  name: string;
+  stages: Record<string, CropStageInfo>;
+}
+
+export type CropsCatalogResponse = Record<string, CropInfo>;
+

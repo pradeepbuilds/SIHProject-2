@@ -1,38 +1,63 @@
-/* KrishiMitra Design System Tokens */
+/* KrishiMitra Modern Agricultural Design System Tokens */
 :root {
-  /* surfaces */
-  --paper: #FAF7F0;
+  /* Surfaces */
+  --paper: #FAF8F5;
   --surface: #FFFFFF;
-  --surface-2: #F3EEE2;
-  --border: #E0D8C5;
-  --border-strong: #C9BFA6;
+  --surface-2: #F4EFE6;
+  --surface-3: #EBE3D5;
+  --border: #E2DAC8;
+  --border-strong: #C8BCA2;
+  --border-focus: #2F6B3B;
 
-  /* ink */
-  --ink: #1F2A22;
-  --ink-2: #4A5650;
-  --ink-3: #6E7A72;
+  /* Ink / Text Colors */
+  --ink: #18221B;
+  --ink-2: #3E4B43;
+  --ink-3: #627067;
+  --ink-muted: #84938A;
 
-  /* brand */
-  --green-700: #1F4D2A;
-  --green-600: #2F6B3B;
-  --green-100: #E3EFE4;
-  --ochre-600: #B27A12;
-  --ochre-100: #F6EAD0;
-  --soil-600: #7A5A3A;
+  /* Agricultural Brand Palette */
+  --green-800: #15381D;
+  --green-700: #1E4E29;
+  --green-600: #2C6B38;
+  --green-500: #3E8A4D;
+  --green-100: #E2F0E4;
+  --green-50: #F0F8F1;
 
-  /* status */
-  --info: #2B6CA3;
-  --warn: #B7791F;
-  --danger: #B3382C;
-  --ok: #2F6B3B;
+  --ochre-700: #946308;
+  --ochre-600: #B77C0F;
+  --ochre-100: #F9EED4;
+  --soil-700: #5C4127;
+  --soil-600: #7E5B37;
+  --soil-100: #F2E8DC;
 
-  /* shape */
-  --radius: 6px;
-  --radius-lg: 10px;
-  --space: 8px;
-  --shadow-1: 0 1px 2px rgba(31, 42, 34, 0.08);
+  /* Status Colors */
+  --info: #1D6FB8;
+  --info-bg: #E8F3FC;
+  --warn: #B87812;
+  --warn-bg: #FCF4E3;
+  --danger: #C23428;
+  --danger-bg: #FDEEEC;
+  --ok: #2C6B38;
+  --ok-bg: #E7F4E9;
 
-  /* data scales (colour-blind safe) */
+  /* Shape & Elevation */
+  --radius-sm: 6px;
+  --radius: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+
+  --shadow-sm: 0 1px 2px rgba(24, 34, 27, 0.05);
+  --shadow: 0 2px 6px rgba(24, 34, 27, 0.07), 0 1px 2px rgba(24, 34, 27, 0.04);
+  --shadow-md: 0 6px 16px rgba(24, 34, 27, 0.09), 0 2px 4px rgba(24, 34, 27, 0.04);
+  --shadow-lg: 0 12px 28px rgba(24, 34, 27, 0.12), 0 4px 8px rgba(24, 34, 27, 0.06);
+
+  /* Touch & Controls */
+  --min-touch-size: 44px;
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.25s ease;
+
+  /* Data scales (colour-blind safe) */
   --rain-0: #F7FBFF;
   --rain-1: #C6DBEF;
   --rain-2: #6BAED6;
@@ -53,32 +78,59 @@
   --font-sans: 'Source Sans 3', 'Noto Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   --font-devanagari: 'Noto Sans Devanagari', 'Mangal', 'Nirmala UI', sans-serif;
   --font-kannada: 'Noto Sans Kannada', 'Tunga', 'Kedage', sans-serif;
+
+  /* Font Sizes */
+  --font-xs: 12px;
+  --font-sm: 14px;
+  --font-base: 16px;
+  --font-md: 18px;
+  --font-lg: 20px;
+  --font-xl: 24px;
+  --font-2xl: 30px;
+  --font-3xl: 36px;
 }
 
 [data-theme="dark"] {
-  --paper: #141A16;
-  --surface: #1C241F;
-  --surface-2: #242E28;
-  --border: #334037;
-  --border-strong: #44544A;
+  --paper: #121814;
+  --surface: #19221C;
+  --surface-2: #212C24;
+  --surface-3: #2B382F;
+  --border: #303E34;
+  --border-strong: #435448;
+  --border-focus: #4F9960;
 
-  --ink: #F2F5F3;
-  --ink-2: #BDC7C0;
-  --ink-3: #8C9990;
+  --ink: #F3F7F4;
+  --ink-2: #C4D1C8;
+  --ink-3: #95A69B;
+  --ink-muted: #6B7D71;
 
-  --green-700: #488B57;
-  --green-600: #357B43;
-  --green-100: #1B3322;
-  --ochre-600: #D89823;
-  --ochre-100: #3D2D0F;
-  --soil-600: #A8815B;
+  --green-800: #1B4024;
+  --green-700: #3E8550;
+  --green-600: #4F9960;
+  --green-500: #68B67B;
+  --green-100: #183320;
+  --green-50: #122417;
 
-  --info: #4A8FD2;
-  --warn: #D89823;
-  --danger: #D65A4C;
-  --ok: #488B57;
+  --ochre-700: #C2891D;
+  --ochre-600: #DDA22A;
+  --ochre-100: #38270C;
+  --soil-700: #9E744D;
+  --soil-600: #B88B5E;
+  --soil-100: #332314;
 
-  --shadow-1: 0 1px 3px rgba(0, 0, 0, 0.4);
+  --info: #4F9FE8;
+  --info-bg: #14283D;
+  --warn: #E09E2B;
+  --warn-bg: #38270A;
+  --danger: #E2584D;
+  --danger-bg: #381512;
+  --ok: #4F9960;
+  --ok-bg: #14301B;
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
+  --shadow: 0 3px 8px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 8px 20px rgba(0, 0, 0, 0.6);
+  --shadow-lg: 0 14px 32px rgba(0, 0, 0, 0.7);
 
   --rain-0: #102438;
   --rain-1: #1B456E;

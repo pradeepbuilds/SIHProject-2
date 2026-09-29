@@ -593,11 +593,15 @@ class MultiRegionService:
         explanation['coarse_value'] = round(coarse_val, 2)
         return explanation
 
+    def get_crops(self) -> Dict[str, Any]:
+        return rule_engine.crops
+
     def get_advisories(
         self,
         location_id: str,
         date_str: str,
         crop: str = "ragi",
+        stage: Optional[str] = None,
         lang: str = "en",
         region_id: Optional[str] = None
     ) -> List[Dict[str, Any]]:
@@ -617,6 +621,11 @@ class MultiRegionService:
         tmin = tmin_pred.get('p50', 20.0) if tmin_pred else 20.0
         unc = rain_pred.get('uncertainty_label', 'medium') if rain_pred else 'medium'
 
+        # Default stage if not supplied: first available stage or 'vegetative'
+        crop_data = rule_engine.crops.get(crop.lower(), {})
+        stages_data = crop_data.get('stages', {})
+        effective_stage = stage if stage and stage in stages_data else (list(stages_data.keys())[0] if stages_data else 'vegetative')
+
         advisories = rule_engine.evaluate(
             rainfall_mm=rain_pred.get('value', 0.0) if rain_pred else 0.0,
             temp_max_c=tmax,
@@ -626,17 +635,19 @@ class MultiRegionService:
             rain_probability=p_rain,
             rainfall_p90_mm=rain_p90,
             crop_name=crop,
-            stage_name="flowering",
+            stage_name=effective_stage,
             uncertainty_label=unc,
             region_thresholds=thresholds,
             lang=lang
         )
         for a in advisories:
+            a['crop'] = crop
+            a['stage'] = effective_stage
             if 'uncertainty_label' not in a:
                 a['uncertainty_label'] = a.get('confidence', unc)
         return advisories
 
-    def get_alerts(self, region_id: str, date_str: str) -> List[Dict[str, Any]]:
+    def get_alerts(self, region_id: str, date_str: str, lang: str = "en") -> List[Dict[str, Any]]:
         store = self.region_data.get(region_id) or {}
         cfg = self.configs.get(region_id)
         if not cfg:
@@ -649,7 +660,7 @@ class MultiRegionService:
         alerts = []
         for _, row in pdf.head(25).iterrows():
             loc_id = str(row['id'])
-            advs = self.get_advisories(loc_id, date_str, crop=cfg.main_crops[0], region_id=region_id)
+            advs = self.get_advisories(loc_id, date_str, crop=cfg.main_crops[0], region_id=region_id, lang=lang)
             critical = [a for a in advs if a['severity'] in ['warning', 'watch']]
             if critical:
                 alerts.append({

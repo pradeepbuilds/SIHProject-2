@@ -132,6 +132,15 @@ class RuleEngine:
         })
         disclaimer = msg_dict.get("disclaimer", "Illustrative advisory rules. Validate thresholds with your local KVK / agricultural university before real use.")
 
+        # Localized informational prefix for high uncertainty
+        info_prefixes = {
+            "en": "[Informational only — wide forecast uncertainty]",
+            "mr": "[केवळ माहितीसाठी — हवामान अनिश्चितता]",
+            "hi": "[केवल सूचना हेतु — पूर्वानुमान अनिश्चितता]",
+            "kn": "[ಮಾಹಿತಿಗಾಗಿ ಮಾತ್ರ — ಮುನ್ಸೂಚನೆ ಅನಿಶ್ಚಿತತೆ]"
+        }
+        info_prefix = msg_dict.get("info_uncertainty_prefix") or info_prefixes.get(lang, info_prefixes["en"])
+
         triggered = []
 
         # 1. Heavy Rainfall (Legacy + Hurdle)
@@ -153,7 +162,7 @@ class RuleEngine:
             )
             
             if norm_unc == "high":
-                msg = f"[Informational only — wide forecast uncertainty] {raw_msg} {conf_phrase}".strip()
+                msg = f"{info_prefix} {raw_msg} {conf_phrase}".strip()
             else:
                 msg = raw_msg
 
@@ -193,7 +202,7 @@ class RuleEngine:
             )
 
             if norm_unc == "high":
-                msg = f"[Informational only — wide forecast uncertainty] {raw_msg} {conf_phrase}".strip()
+                msg = f"{info_prefix} {raw_msg} {conf_phrase}".strip()
             else:
                 msg = raw_msg
 
@@ -235,7 +244,7 @@ class RuleEngine:
             )
 
             if norm_unc == "high":
-                msg = f"[Informational only — wide forecast uncertainty] {raw_msg} {conf_phrase}".strip()
+                msg = f"{info_prefix} {raw_msg} {conf_phrase}".strip()
             else:
                 msg = raw_msg
 
@@ -271,7 +280,7 @@ class RuleEngine:
             )
 
             if norm_unc == "high":
-                msg = f"[Informational only — wide forecast uncertainty] {raw_msg} {conf_phrase}".strip()
+                msg = f"{info_prefix} {raw_msg} {conf_phrase}".strip()
             else:
                 msg = raw_msg
 
@@ -304,7 +313,7 @@ class RuleEngine:
             )
 
             if norm_unc == "high":
-                msg = f"[Informational only — wide forecast uncertainty] {raw_msg} {conf_phrase}".strip()
+                msg = f"{info_prefix} {raw_msg} {conf_phrase}".strip()
             else:
                 msg = raw_msg
 
@@ -337,7 +346,7 @@ class RuleEngine:
             )
 
             if norm_unc == "high":
-                msg = f"[Informational only — wide forecast uncertainty] {raw_msg} {conf_phrase}".strip()
+                msg = f"{info_prefix} {raw_msg} {conf_phrase}".strip()
             else:
                 msg = raw_msg
 
@@ -369,7 +378,7 @@ class RuleEngine:
             )
 
             if norm_unc == "high":
-                msg = f"[Informational only — wide forecast uncertainty] {raw_msg} {conf_phrase}".strip()
+                msg = f"{info_prefix} {raw_msg} {conf_phrase}".strip()
             else:
                 msg = raw_msg
 
@@ -397,7 +406,7 @@ class RuleEngine:
             )
 
             if norm_unc == "high":
-                msg = f"[Informational only — wide forecast uncertainty] {raw_msg} {conf_phrase}".strip()
+                msg = f"{info_prefix} {raw_msg} {conf_phrase}".strip()
             else:
                 msg = raw_msg
 

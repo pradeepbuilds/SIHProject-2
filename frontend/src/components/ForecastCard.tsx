@@ -1,8 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import { Copy, Printer, ChevronDown, ChevronUp, HelpCircle, FileText } from 'lucide-react';
-import type { PredictionResponse, StripItem, Advisory, PredictionExplanation } from '../types/api';
+import {
+  Copy,
+  Printer,
+  ChevronDown,
+  ChevronUp,
+  HelpCircle,
+  FileText,
+  AlertTriangle,
+  Info,
+  ShieldAlert,
+  Sprout,
+  Calendar,
+  Layers,
+  Check,
+  TrendingUp,
+  Thermometer,
+  CloudRain
+} from 'lucide-react';
+import type { PredictionResponse, StripItem, Advisory, PredictionExplanation, CropInfo } from '../types/api';
 import { getTranslation, formatTemplate, formatDateLocale, type SupportedLanguage } from '../i18n';
-import { fetchPredictionStrip, fetchPredictionExplain } from '../services/api';
+import { fetchPredictionStrip, fetchPredictionExplain, fetchCrops } from '../services/api';
+import { FarmerTrendChart } from './FarmerTrendChart';
 
 interface ForecastCardProps {
   prediction: PredictionResponse | null;
@@ -10,6 +28,8 @@ interface ForecastCardProps {
   selectedPanchayatName: string;
   selectedCrop: string;
   onSelectCrop: (crop: string) => void;
+  selectedStage?: string;
+  onSelectStage?: (stage: string) => void;
   availableCrops: string[];
   advisories: Advisory[];
   date: string;
@@ -25,6 +45,8 @@ export const ForecastCard: React.FC<ForecastCardProps> = ({
   selectedPanchayatName,
   selectedCrop,
   onSelectCrop,
+  selectedStage,
+  onSelectStage,
   availableCrops,
   advisories,
   date,
@@ -34,11 +56,21 @@ export const ForecastCard: React.FC<ForecastCardProps> = ({
   onOpenBulletin
 }) => {
   const t = getTranslation(lang);
+  const f = t.farmer || {};
   const [strip, setStrip] = useState<StripItem[]>([]);
   const [explanation, setExplanation] = useState<PredictionExplanation | null>(null);
   const [showExplain, setShowExplain] = useState<boolean>(false);
-  const [expandedAdvisoryId, setExpandedAdvisoryId] = useState<string | null>(null);
+  const [expandedWhyIds, setExpandedWhyIds] = useState<Record<string, boolean>>({});
   const [smsCopied, setSmsCopied] = useState<boolean>(false);
+  const [cropsCatalog, setCropsCatalog] = useState<Record<string, CropInfo>>({});
+  const [showTrendChart, setShowTrendChart] = useState<boolean>(true);
+
+  // Load Crops Catalog
+  useEffect(() => {
+    fetchCrops()
+      .then(setCropsCatalog)
+      .catch((e) => console.warn('Could not load crops catalog:', e));
+  }, []);
 
   // Fetch 5-Day Strip
   useEffect(() => {
@@ -48,7 +80,7 @@ export const ForecastCard: React.FC<ForecastCardProps> = ({
       .catch(console.error);
   }, [selectedPanchayatId, date, regionId]);
 
-  // Fetch Explanation
+  // Fetch Feature Explanation
   useEffect(() => {
     if (!selectedPanchayatId) return;
     fetchPredictionExplain(selectedPanchayatId, date, prediction?.variable || 'rainfall', regionId)
@@ -56,9 +88,19 @@ export const ForecastCard: React.FC<ForecastCardProps> = ({
       .catch(console.error);
   }, [selectedPanchayatId, date, prediction?.variable, regionId]);
 
+  // Current crop stages list
+  const currentCropMeta = cropsCatalog[selectedCrop.toLowerCase()];
+  const availableStages = currentCropMeta ? Object.keys(currentCropMeta.stages) : ['sowing', 'vegetative', 'flowering', 'grain_filling', 'maturity'];
+  const activeStage = selectedStage || availableStages[0] || 'vegetative';
+
+  // Toggle Why drawer for an advisory
+  const toggleWhy = (ruleId: string) => {
+    setExpandedWhyIds((prev) => ({ ...prev, [ruleId]: !prev[ruleId] }));
+  };
+
   // Generate Farmer Headline Sentence
   const generateHeadline = (): string => {
-    if (!prediction) return '';
+    if (!prediction) return t.common?.loading || 'Local forecast loading...';
     const formattedDate = formatDateLocale(date, lang);
     if (prediction.variable.includes('rain')) {
       const p = Math.round((prediction.rain_probability ?? 0.1) * 100);
@@ -66,17 +108,17 @@ export const ForecastCard: React.FC<ForecastCardProps> = ({
       const p90 = prediction.wet_amount_p90 ?? prediction.uncertainty_interval?.p90 ?? 0.0;
 
       if (p < 20) {
-        return formatTemplate(t.farmer.headline_rain_unlikely, { date: formattedDate });
+        return formatTemplate(f.headline_rain_unlikely || 'Rain is unlikely on {{date}}.', { date: formattedDate });
       } else if (p < 50) {
-        return formatTemplate(t.farmer.headline_rain_possible, { date: formattedDate, p });
+        return formatTemplate(f.headline_rain_possible || 'There is a chance of rain (about {{p}}%).', { date: formattedDate, p });
       } else {
-        return formatTemplate(t.farmer.headline_rain_likely, { date: formattedDate, p, p50, p90 });
+        return formatTemplate(f.headline_rain_likely || 'Rain is likely (about {{p}}%). Expect around {{p50}} mm, up to {{p90}} mm if it turns heavy.', { date: formattedDate, p, p50: p50.toFixed(1), p90: p90.toFixed(1) });
       }
     } else {
       const tmax = prediction.value ?? prediction.prediction ?? prediction.uncertainty_interval?.p50 ?? 30.0;
-      const p10 = prediction.uncertainty_interval?.p10 ?? (tmax - 1.2);
-      const p90 = prediction.uncertainty_interval?.p90 ?? (tmax + 1.2);
-      return formatTemplate(t.farmer.headline_temp, { tmax, p10, p90 });
+      const p10 = prediction.uncertainty_interval?.p10 ?? (tmax - 1.5);
+      const p90 = prediction.uncertainty_interval?.p90 ?? (tmax + 1.5);
+      return formatTemplate(f.headline_temp || 'Daytime high around {{tmax}} °C (likely between {{p10}} and {{p90}} °C).', { tmax: Math.round(tmax), p10: Math.round(p10), p90: Math.round(p90) });
     }
   };
 
@@ -85,7 +127,7 @@ export const ForecastCard: React.FC<ForecastCardProps> = ({
     const loc = selectedPanchayatName || selectedPanchayatId;
     const headline = generateHeadline();
     const topAdv = advisories.length > 0 ? advisories[0].message : '';
-    const sms = `KrishiMitra [${loc}]: ${headline} ${topAdv}`.slice(0, 295);
+    const sms = `[KrishiMitra ${loc} (${date})]: ${headline} | Advisory: ${topAdv}`.slice(0, 290);
 
     navigator.clipboard.writeText(sms).then(() => {
       setSmsCopied(true);
@@ -95,222 +137,325 @@ export const ForecastCard: React.FC<ForecastCardProps> = ({
 
   if (!prediction) {
     return (
-      <div className="km-card km-forecast-card km-empty-card">
-        <p>Select a panchayat on the map to view downscaled forecast.</p>
+      <div className="km-forecast-card km-empty-card" role="region" aria-label="Forecast Details">
+        <div className="km-empty-content">
+          <Info size={32} className="km-text-brand" />
+          <h3>{f.empty_title || 'No Panchayat Selected'}</h3>
+          <p>{f.empty_desc || 'Click any panchayat on the map or select from the dropdown above to view local weather intelligence.'}</p>
+        </div>
       </div>
     );
   }
 
   const uncLabel = prediction.uncertainty_label || 'medium';
+  const displayVal = prediction.value ?? prediction.prediction ?? 0;
+  const coarseVal = prediction.coarse_reference?.value ?? 0;
+  const diffVal = Number((displayVal - coarseVal).toFixed(1));
+
+  // Merge region crops with catalog keys
+  const combinedCropKeys = Array.from(new Set([...availableCrops, ...Object.keys(cropsCatalog)]));
 
   return (
-    <div className="km-card km-forecast-card" role="region" aria-label="Forecast Details">
-      {/* Panchayat Header */}
-      <div className="km-forecast-header">
-        <div>
-          <span className="km-unit-badge">Panchayat Level</span>
+    <div className="km-forecast-card" role="region" aria-label="Forecast Details">
+      {/* Header Banner */}
+      <div className="km-fc-header">
+        <div className="km-fc-header-main">
+          <span className="km-unit-badge">{t.auth?.visual_panchayat_label || 'Panchayat Weather Intelligence'}</span>
           <h2 className="km-location-title">{selectedPanchayatName || selectedPanchayatId}</h2>
-          <div className="km-forecast-date">{formatDateLocale(date, lang)}</div>
+          <div className="km-forecast-date-row">
+            <Calendar size={14} />
+            <span>{formatDateLocale(date, lang)}</span>
+            <span className="km-tag-id">ID: {selectedPanchayatId}</span>
+          </div>
         </div>
-        <div className={`km-confidence-pill km-conf-${uncLabel}`} title="Calibrated 80% interval uncertainty">
-          {t.confidence[uncLabel] || uncLabel}
+
+        <div className={`km-confidence-pill km-conf-${uncLabel}`} title="Calibrated 80% uncertainty interval">
+          <span className="km-conf-dot" />
+          <span>{t.confidence?.[uncLabel] || uncLabel.toUpperCase()}</span>
         </div>
       </div>
 
-      {/* FARMER VIEW */}
-      {userView === 'farmer' && (
-        <div className="km-farmer-section">
-          {/* Main Plain-Language Message */}
-          <div className="km-farmer-headline-box">
-            <p className="km-farmer-headline">{generateHeadline()}</p>
-          </div>
+      {/* Main Plain-Language Farmer Headline */}
+      <div className="km-farmer-headline-box">
+        <div className="km-headline-icon-wrap">
+          {prediction.variable.includes('rain') ? <CloudRain size={22} className="km-text-info" /> : <Thermometer size={22} className="km-text-warn" />}
+        </div>
+        <p className="km-farmer-headline">{generateHeadline()}</p>
+      </div>
 
-          {/* 5-Day Strip */}
-          <div className="km-strip-container">
-            <h3 className="km-section-heading">{t.farmer.five_day_strip}</h3>
-            <div className="km-strip-grid">
-              {strip.map((item, idx) => {
-                const dayRain = item.rainfall?.rainfall_mm ?? item.rainfall?.value ?? 0;
-                const prob = Math.round((item.rainfall?.rain_probability ?? 0.1) * 100);
-                const tHigh = Math.round(item.temp_max?.value ?? item.temp_max?.prediction ?? item.temp_max?.uncertainty_interval?.p50 ?? 30);
-                const tLow = Math.round(item.temp_min?.value ?? item.temp_min?.prediction ?? item.temp_min?.uncertainty_interval?.p50 ?? 20);
+      {/* 5-Day Weather Strip */}
+      <div className="km-strip-section">
+        <div className="km-section-header">
+          <h3 className="km-section-title">{f.five_day_strip || '5-Day Panchayat Forecast'}</h3>
+          <span className="km-section-sub">{f.calibrated_outlook || 'Calibrated Panchayat Outlook'}</span>
+        </div>
 
-                return (
-                  <div key={idx} className="km-strip-day">
-                    <span className="km-day-label">{formatDateLocale(item.date, lang).split(' ')[0]}</span>
-                    <span className="km-day-prob">{prob}% rain</span>
-                    <span className="km-day-rain">{dayRain} mm</span>
-                    <span className="km-day-temp">{tHigh}° / {tLow}°</span>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
+        <div className="km-strip-grid">
+          {strip.map((item, idx) => {
+            const dayRain = item.rainfall?.rainfall_mm ?? item.rainfall?.value ?? 0;
+            const prob = Math.round((item.rainfall?.rain_probability ?? 0.1) * 100);
+            const tHigh = Math.round(item.temp_max?.value ?? item.temp_max?.prediction ?? item.temp_max?.uncertainty_interval?.p50 ?? 30);
+            const tLow = Math.round(item.temp_min?.value ?? item.temp_min?.prediction ?? item.temp_min?.uncertainty_interval?.p50 ?? 20);
+            const isTargetDate = item.date === date;
 
-          {/* Crop Selector & Advisories */}
-          <div className="km-advisory-section">
-            <div className="km-advisory-header-row">
-              <h3 className="km-section-heading">{t.farmer.advisories_title}</h3>
-              <div className="km-crop-select-wrapper">
-                <label htmlFor="crop-select" className="km-inline-label">
-                  {t.farmer.crop_label}
-                </label>
-                <select
-                  id="crop-select"
-                  className="km-select km-select-sm"
-                  value={selectedCrop}
-                  onChange={(e) => onSelectCrop(e.target.value)}
-                >
-                  {availableCrops.map((c) => (
-                    <option key={c} value={c}>
-                      {c.charAt(0).toUpperCase() + c.slice(1)}
-                    </option>
-                  ))}
-                </select>
+            return (
+              <div key={idx} className={`km-strip-day ${isTargetDate ? 'km-strip-active' : ''}`}>
+                <span className="km-day-label">{formatDateLocale(item.date, lang).split(' ')[0]}</span>
+                <span className="km-day-prob">{prob}% {t.common?.crop ? '' : 'rain'}</span>
+                <span className="km-day-rain">{dayRain.toFixed(1)} mm</span>
+                <span className="km-day-temp">{tHigh}° / {tLow}°</span>
               </div>
-            </div>
+            );
+          })}
+        </div>
+      </div>
 
-            <div className="km-advisory-list">
-              {advisories.slice(0, 3).map((adv) => {
-                const isExpanded = expandedAdvisoryId === adv.rule_id;
-                return (
-                  <div key={adv.rule_id} className={`km-advisory-item km-severity-${adv.severity}`}>
-                    <div className="km-advisory-top">
-                      <span className="km-adv-severity">{adv.severity.toUpperCase()}</span>
+      {/* Crop & Phenological Stage Selector */}
+      <div className="km-crop-stage-box">
+        <div className="km-crop-stage-header">
+          <Sprout size={18} className="km-text-success" />
+          <h4>{f.crop_stage_context || 'Crop & Stage Context'}</h4>
+        </div>
+
+        <div className="km-crop-controls-grid">
+          <div className="km-control-col">
+            <label htmlFor="card-crop-select" className="km-control-label">
+              {f.cultivated_crop || 'Cultivated Crop'}
+            </label>
+            <select
+              id="card-crop-select"
+              className="km-select km-select-crop"
+              value={selectedCrop.toLowerCase()}
+              onChange={(e) => {
+                const newCrop = e.target.value;
+                onSelectCrop(newCrop);
+                const newStages = cropsCatalog[newCrop]?.stages ? Object.keys(cropsCatalog[newCrop].stages) : ['sowing', 'vegetative'];
+                if (onSelectStage && newStages.length > 0) {
+                  onSelectStage(newStages[0]);
+                }
+              }}
+            >
+              {combinedCropKeys.map((c) => (
+                <option key={c} value={c}>
+                  {cropsCatalog[c]?.name || c.toUpperCase()}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="km-control-col">
+            <label htmlFor="card-stage-select" className="km-control-label">
+              {f.phenological_stage || 'Phenological Stage'}
+            </label>
+            <select
+              id="card-stage-select"
+              className="km-select km-select-stage"
+              value={activeStage}
+              onChange={(e) => onSelectStage && onSelectStage(e.target.value)}
+            >
+              {availableStages.map((st) => (
+                <option key={st} value={st}>
+                  {st.replace('_', ' ').toUpperCase()}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+      </div>
+
+      {/* Actionable Agrometeorological Advisories */}
+      <div className="km-advisory-section">
+        <div className="km-section-header">
+          <h3 className="km-section-title">{f.actionable_guidance || 'Actionable Agricultural Guidance'}</h3>
+          <span className="km-badge km-badge-stage">{selectedCrop.toUpperCase()} · {activeStage.toUpperCase()}</span>
+        </div>
+
+        {advisories.length === 0 ? (
+          <div className="km-advisory-empty">
+            <Check size={20} className="km-text-success" />
+            <p>
+              {f.no_critical_alerts
+                ? formatTemplate(f.no_critical_alerts, { crop: selectedCrop.toUpperCase(), stage: activeStage.toUpperCase() })
+                : `No critical weather alerts for ${selectedCrop} (${activeStage}) today. Proceed with routine field operations.`}
+            </p>
+          </div>
+        ) : (
+          <div className="km-advisory-list">
+            {advisories.map((adv, idx) => {
+              const sev = adv.severity || 'info';
+              const isWhyOpen = !!expandedWhyIds[adv.rule_id || String(idx)];
+
+              return (
+                <div key={adv.rule_id || idx} className={`km-adv-card km-adv-${sev}`}>
+                  <div className="km-adv-header">
+                    <div className="km-adv-badge-wrap">
+                      <span className={`km-sev-badge km-sev-${sev}`}>
+                        {sev === 'warning' ? <AlertTriangle size={14} /> : sev === 'watch' ? <ShieldAlert size={14} /> : <Info size={14} />}
+                        {t.advisories_page?.[`sev_${sev}`] || sev.toUpperCase()}
+                      </span>
                       <strong className="km-adv-title">{adv.title}</strong>
                     </div>
-                    <p className="km-adv-msg">{adv.message}</p>
+                    <span className="km-adv-unc-tag">{t.point_query?.uncertainty || 'Uncertainty'}: {t.confidence?.[adv.confidence] || adv.confidence || uncLabel}</span>
+                  </div>
 
+                  <p className="km-adv-message">{adv.message}</p>
+
+                  <div className="km-adv-actions">
                     <button
                       type="button"
-                      className="km-expander-toggle"
-                      onClick={() => setExpandedAdvisoryId(isExpanded ? null : adv.rule_id)}
-                      aria-expanded={isExpanded}
+                      className="km-adv-why-btn"
+                      onClick={() => toggleWhy(adv.rule_id || String(idx))}
+                      aria-expanded={isWhyOpen}
                     >
-                      <span>{t.farmer.why_rule}</span>
-                      {isExpanded ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
+                      <HelpCircle size={14} />
+                      <span>{f.why_recommendation || f.why_rule || 'Why this recommendation?'}</span>
+                      {isWhyOpen ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
                     </button>
-
-                    {isExpanded && (
-                      <div className="km-expander-content">
-                        <div className="km-meta-row">
-                          <span>Rule ID:</span> <code>{adv.rule_id}</code>
-                        </div>
-                        {adv.trigger_inputs && (
-                          <div className="km-meta-row">
-                            <span>Trigger Inputs:</span>
-                            <code>{JSON.stringify(adv.trigger_inputs)}</code>
-                          </div>
-                        )}
-                        <p className="km-disclaimer-text">{adv.disclaimer}</p>
-                      </div>
-                    )}
                   </div>
-                );
-              })}
-            </div>
-          </div>
 
-          {/* Why This Differs Expander */}
-          {explanation && explanation.contributions && (
-            <div className="km-diff-explain-box">
-              <button
-                type="button"
-                className="km-explain-toggle"
-                onClick={() => setShowExplain(!showExplain)}
-                aria-expanded={showExplain}
-              >
-                <div className="km-explain-title-row">
-                  <HelpCircle size={15} />
-                  <span>{t.farmer.why_differs}</span>
+                  {isWhyOpen && (
+                    <div className="km-adv-why-drawer">
+                      <div className="km-why-row">
+                        <span>{f.trigger_rule || 'Trigger Rule:'}</span>
+                        <code>{adv.rule_id}</code>
+                      </div>
+                      <div className="km-why-row">
+                        <span>{f.crop_stage_context || 'Crop & Stage:'}</span>
+                        <strong>{adv.crop || selectedCrop} ({adv.stage || activeStage})</strong>
+                      </div>
+                      {adv.trigger_inputs && (
+                        <div className="km-why-inputs">
+                          <span>{f.evaluated_inputs || 'Evaluated Weather Inputs:'}</span>
+                          <pre>{JSON.stringify(adv.trigger_inputs, null, 2)}</pre>
+                        </div>
+                      )}
+                      <p className="km-why-disclaimer">{adv.disclaimer || 'Meteorological advisory guidance generated by rule engine. Verify local conditions before field interventions.'}</p>
+                    </div>
+                  )}
                 </div>
-                {showExplain ? <ChevronUp size={15} /> : <ChevronDown size={15} />}
-              </button>
-
-              {showExplain && (
-                <div className="km-explain-details">
-                  <p className="km-explain-summary">
-                    Block forecast ({explanation.coarse_value} mm/°C) adjusted for local terrain & land cover:
-                  </p>
-                  <ul className="km-contrib-list">
-                    {explanation.contributions.slice(0, 3).map((c, i) => (
-                      <li key={i} className={`km-contrib-item km-impact-${c.impact}`}>
-                        <span className="km-contrib-label">{c.label}:</span>
-                        <strong className="km-contrib-val">
-                          {c.contribution > 0 ? `+${c.contribution}` : c.contribution} {c.unit}
-                        </strong>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </div>
-          )}
-
-          {/* Farmer Actions: SMS & Bulletin */}
-          <div className="km-card-actions">
-            <button type="button" className="km-btn km-btn-outline" onClick={handleCopySMS}>
-              <Copy size={15} />
-              <span>{smsCopied ? t.farmer.sms_copied : t.farmer.copy_sms}</span>
-            </button>
-            <button type="button" className="km-btn km-btn-primary" onClick={onOpenBulletin}>
-              <Printer size={15} />
-              <span>{t.farmer.print_bulletin}</span>
-            </button>
+              );
+            })}
           </div>
+        )}
+      </div>
+
+      {/* 5-Day Weather Trend Visualization */}
+      <div className="km-trend-toggle-box">
+        <button
+          type="button"
+          className="km-btn km-btn-outline km-btn-sm"
+          onClick={() => setShowTrendChart(!showTrendChart)}
+        >
+          <TrendingUp size={16} />
+          <span>{showTrendChart ? (f.hide_trend || 'Hide 5-Day Weather Trend Chart') : (f.show_trend || 'Show 5-Day Weather Trend Chart')}</span>
+          {showTrendChart ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
+        </button>
+      </div>
+
+      {showTrendChart && strip.length > 0 && (
+        <div className="km-farmer-trend-card">
+          <FarmerTrendChart stripData={strip} lang={lang} />
         </div>
       )}
 
-      {/* OFFICER VIEW */}
+      {/* Officer Specific Detailed Metrics Breakdown */}
       {userView === 'officer' && (
         <div className="km-officer-section">
-          {/* Full Quantile & Baseline Diagnostics Block */}
-          <div className="km-diagnostics-box">
-            <h3 className="km-diagnostics-heading">{t.officer.full_metrics_block}</h3>
-            <div className="km-diagnostics-grid">
-              <div className="km-diag-card">
-                <span className="km-diag-label">Block Baseline</span>
-                <span className="km-diag-val">{prediction.coarse_reference?.value ?? 'N/A'} {prediction.unit || 'mm'}</span>
-              </div>
-              <div className="km-diag-card km-diag-highlight">
-                <span className="km-diag-label">KrishiMitra P50</span>
-                <span className="km-diag-val">{prediction.value} {prediction.unit || 'mm'}</span>
-              </div>
-              <div className="km-diag-card">
-                <span className="km-diag-label">10th Percentile (P10)</span>
-                <span className="km-diag-val">{prediction.uncertainty_interval?.p10} {prediction.unit || 'mm'}</span>
-              </div>
-              <div className="km-diag-card">
-                <span className="km-diag-label">90th Percentile (P90)</span>
-                <span className="km-diag-val">{prediction.uncertainty_interval?.p90} {prediction.unit || 'mm'}</span>
-              </div>
+          <div className="km-section-header">
+            <h3 className="km-section-title">{f.downscaling_breakdown || 'Downscaling Model Breakdown'}</h3>
+            <span className="km-badge km-badge-calibrated">LightGBM v2.0</span>
+          </div>
+
+          <div className="km-metrics-grid">
+            <div className="km-metric-box">
+              <span className="km-metric-label">{f.ml_estimate || 'KrishiMitra ML'}</span>
+              <strong className="km-metric-val">{displayVal.toFixed(1)} {prediction.unit || 'mm'}</strong>
+              <span className="km-metric-sub">{f.panchayat_local || 'Panchayat Local'}</span>
             </div>
 
-            <div className="km-diag-meta">
-              <div className="km-meta-item">
-                <span>80% Interval Width:</span>
-                <strong>{prediction.interval_width} {prediction.unit || 'mm'}</strong>
-              </div>
-              <div className="km-meta-item">
-                <span>Uncertainty Class:</span>
-                <strong className={`km-unc-${uncLabel}`}>{uncLabel.toUpperCase()}</strong>
-              </div>
-              <div className="km-meta-item">
-                <span>Model Engine:</span>
-                <code>{prediction.model_version}</code>
-              </div>
+            <div className="km-metric-box">
+              <span className="km-metric-label">{f.block_baseline || 'Block Coarse Baseline'}</span>
+              <strong className="km-metric-val">{coarseVal.toFixed(1)} {prediction.unit || 'mm'}</strong>
+              <span className="km-metric-sub">{f.block_avg || 'Block Average'}</span>
+            </div>
+
+            <div className="km-metric-box">
+              <span className="km-metric-label">{f.spatial_difference || 'Spatial Difference'}</span>
+              <strong className={`km-metric-val ${diffVal >= 0 ? 'km-val-pos' : 'km-val-neg'}`}>
+                {diffVal > 0 ? `+${diffVal.toFixed(1)}` : diffVal.toFixed(1)} {prediction.unit || 'mm'}
+              </strong>
+              <span className="km-metric-sub">{f.ml_minus_baseline || 'ML − Baseline'}</span>
+            </div>
+
+            <div className="km-metric-box">
+              <span className="km-metric-label">{f.interval_80 || '80% Interval (P10–P90)'}</span>
+              <strong className="km-metric-val">
+                {prediction.uncertainty_interval?.p10?.toFixed(1) ?? '0.0'} – {prediction.uncertainty_interval?.p90?.toFixed(1) ?? '0.0'}
+              </strong>
+              <span className="km-metric-sub">{f.calibrated_interval || 'Calibrated Interval'}</span>
             </div>
           </div>
 
-          {/* Quick Officer Action */}
+          {/* Model Explanation Feature Contributions */}
           <div className="km-officer-actions">
-            <button type="button" className="km-btn km-btn-primary" onClick={onOpenBulletin}>
-              <FileText size={15} />
-              <span>Print Official District Bulletin</span>
+            <button
+              type="button"
+              className="km-btn km-btn-outline km-btn-sm"
+              onClick={() => setShowExplain(!showExplain)}
+            >
+              <Layers size={15} />
+              <span>{showExplain ? (f.hide_shap || 'Hide Feature Attribution') : (f.view_shap || 'View Feature Attribution (SHAP)')}</span>
+            </button>
+
+            <button
+              type="button"
+              className="km-btn km-btn-primary km-btn-sm"
+              onClick={onOpenBulletin}
+            >
+              <Printer size={15} />
+              <span>{f.print_bulletin_btn || 'Print 1-Page Agromet Bulletin'}</span>
             </button>
           </div>
+
+          {showExplain && explanation && (
+            <div className="km-explain-box">
+              <h4>Local Feature Contributions vs Block Baseline:</h4>
+              <div className="km-contrib-table">
+                {explanation.contributions.map((c, i) => (
+                  <div key={i} className="km-contrib-row">
+                    <span className="km-contrib-label">{c.label} ({c.value} {c.unit})</span>
+                    <span className={`km-contrib-val km-contrib-${c.impact}`}>
+                      {c.contribution > 0 ? `+${c.contribution.toFixed(2)}` : c.contribution.toFixed(2)}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       )}
+
+      {/* Footer Utilities */}
+      <div className="km-fc-footer">
+        <button
+          type="button"
+          className="km-btn km-btn-outline km-btn-sm km-sms-btn"
+          onClick={handleCopySMS}
+        >
+          {smsCopied ? <Check size={16} className="km-text-success" /> : <Copy size={16} />}
+          <span>{smsCopied ? (f.sms_copied || 'SMS Copied to Clipboard!') : (f.copy_sms_btn || 'Copy Farmer SMS Advisory')}</span>
+        </button>
+
+        <button
+          type="button"
+          className="km-btn km-btn-ghost km-btn-sm"
+          onClick={onOpenBulletin}
+          title="Open printable bulletin"
+        >
+          <FileText size={16} />
+          <span>{f.bulletin_btn || 'Agromet Bulletin'}</span>
+        </button>
+      </div>
     </div>
   );
 };

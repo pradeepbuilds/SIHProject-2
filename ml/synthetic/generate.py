@@ -180,7 +180,7 @@ def generate_static_features(gdf_locations):
     return df_features
 
 def generate_weather(gdf_locations):
-    dates = pd.date_range(start='2024-06-01', end='2026-06-01', freq='D')
+    dates = pd.date_range(start='2024-06-01', end='2026-07-31', freq='D')
     
     observations = []
     forecasts = []

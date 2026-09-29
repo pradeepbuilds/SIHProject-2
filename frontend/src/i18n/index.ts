@@ -19,6 +19,51 @@ export const LANGUAGE_NAMES: Record<SupportedLanguage, string> = {
   mr: 'मराठी (Marathi)'
 };
 
+export function t(
+  path: string,
+  vars?: Record<string, string | number>,
+  lang: SupportedLanguage = 'en'
+): string {
+  const keys = path.split('.');
+  const activeDict = translations[lang] || translations.en;
+  const fallbackDict = translations.en;
+
+  let current: any = activeDict;
+  for (const k of keys) {
+    if (current && typeof current === 'object' && k in current) {
+      current = current[k];
+    } else {
+      current = undefined;
+      break;
+    }
+  }
+
+  if (current === undefined || typeof current !== 'string') {
+    // Development-only warning for missing translation key
+    if (import.meta.env?.DEV && lang !== 'en') {
+      console.warn(`[KrishiMitra i18n] Missing translation key: "${path}" for locale "${lang}". Falling back to English.`);
+    }
+
+    // Fallback to English
+    let fallback: any = fallbackDict;
+    for (const k of keys) {
+      if (fallback && typeof fallback === 'object' && k in fallback) {
+        fallback = fallback[k];
+      } else {
+        fallback = undefined;
+        break;
+      }
+    }
+    current = fallback !== undefined ? fallback : path;
+  }
+
+  if (typeof current === 'string' && vars) {
+    return formatTemplate(current, vars);
+  }
+
+  return typeof current === 'string' ? current : path;
+}
+
 export function getTranslation(lang: SupportedLanguage = 'en') {
   return translations[lang] || translations.en;
 }

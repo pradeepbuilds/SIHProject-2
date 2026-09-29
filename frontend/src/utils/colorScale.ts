@@ -68,10 +68,11 @@ export function getLegendStops(variable: string, mode: 'coarse' | 'downscaled' |
     ];
   } else if (normVar.includes('min')) {
     return [
-      { color: TEMP_MIN_SCALE[0], label: '> 24°C' },
-      { color: TEMP_MIN_SCALE[1], label: '20°C' },
-      { color: TEMP_MIN_SCALE[2], label: '16°C' },
-      { color: TEMP_MIN_SCALE[4], label: '< 12°C' }
+      { color: TEMP_MIN_SCALE[4], label: '≤ 12°C' },
+      { color: TEMP_MIN_SCALE[3], label: '16°C' },
+      { color: TEMP_MIN_SCALE[2], label: '20°C' },
+      { color: TEMP_MIN_SCALE[1], label: '24°C' },
+      { color: TEMP_MIN_SCALE[0], label: '≥ 28°C' }
     ];
   } else {
     return [

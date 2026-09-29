@@ -122,23 +122,31 @@ export async function postOnDemandPrediction(
   return res.json();
 }
 
+export async function fetchCrops(): Promise<Record<string, { name: string; stages: Record<string, { heat_max_c: number; min_moisture_pct: number }> }>> {
+  const res = await fetch(`${API_BASE}/crops`);
+  if (!res.ok) throw new Error('Failed to fetch crops catalog');
+  return res.json();
+}
+
 export async function fetchAdvisories(
   locationId: string,
   crop: string = 'ragi',
   lang: string = 'en',
   date?: string,
-  regionId?: string
+  regionId?: string,
+  stage?: string
 ): Promise<Advisory[]> {
-  let url = `${API_BASE}/advisory/${locationId}?crop=${crop}&lang=${lang}`;
+  let url = `${API_BASE}/advisory/${locationId}?crop=${encodeURIComponent(crop)}&lang=${lang}`;
   if (date) url += `&date=${date}`;
   if (regionId) url += `&region_id=${regionId}`;
+  if (stage) url += `&stage=${encodeURIComponent(stage)}`;
   const res = await fetch(url);
   if (!res.ok) throw new Error('Failed to fetch advisories');
   return res.json();
 }
 
-export async function fetchAlerts(regionId: string, date?: string): Promise<AlertItem[]> {
-  let url = `${API_BASE}/advisory/alerts?region_id=${regionId}`;
+export async function fetchAlerts(regionId: string, date?: string, lang: string = 'en'): Promise<AlertItem[]> {
+  let url = `${API_BASE}/advisory/alerts?region_id=${regionId}&lang=${lang}`;
   if (date) url += `&date=${date}`;
   const res = await fetch(url);
   if (!res.ok) throw new Error('Failed to fetch alerts');

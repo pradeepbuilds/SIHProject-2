@@ -1,15 +1,39 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 48" width="240" height="48">
-  <!-- Sprout Icon -->
-  <g transform="translate(6, 4)">
-    <rect width="40" height="40" rx="10" fill="#1F4D2A"/>
-    <!-- Sprout Stem -->
-    <path d="M20 32 C20 23 20 18 20 14" stroke="#FAF7F0" stroke-width="3" stroke-linecap="round"/>
-    <!-- Left Leaf -->
-    <path d="M20 22 C14 22 10 17 11 12 C16 12 20 16 20 21 Z" fill="#E3EFE4"/>
-    <!-- Right Leaf -->
-    <path d="M20 17 C26 16 29 11 26 7 C22 8 20 12 20 16 Z" fill="#F6EAD0"/>
-  </g>
-  <!-- Wordmark -->
-  <text x="56" y="27" font-family="Source Sans 3, system-ui, sans-serif" font-size="20" font-weight="700" fill="#1F4D2A" letter-spacing="-0.3">Krishi<tspan fill="#B27A12">Mitra</tspan></text>
-  <text x="56" y="40" font-family="Source Sans 3, system-ui, sans-serif" font-size="10" font-weight="500" fill="#4A5650" letter-spacing="0.2">WEATHER INTELLIGENCE</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="kmLogoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stopColor="#1B4D2E"/>
+      <stop offset="100%" stopColor="#2E6B3F"/>
+    </linearGradient>
+    <linearGradient id="kmSunGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stopColor="#F6E05E"/>
+      <stop offset="100%" stopColor="#DD6B20"/>
+    </linearGradient>
+    <linearGradient id="kmLeafGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stopColor="#E2F7E4"/>
+      <stop offset="100%" stopColor="#9AE6B4"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Base Badge Card -->
+  <rect x="2" y="2" width="60" height="60" rx="14" fill="url(#kmLogoGrad)" stroke="#ECC94B" stroke-width="2" />
+
+  <!-- Subtle Weather Sun in upper right -->
+  <circle cx="44" cy="18" r="8" fill="url(#kmSunGrad)" opacity="0.9" />
+
+  <!-- Radiating sun rays -->
+  <line x1="44" y1="6" x2="44" y2="8" stroke="#F6E05E" stroke-width="2" stroke-linecap="round" />
+  <line x1="54" y1="12" x2="52.5" y2="13.5" stroke="#F6E05E" stroke-width="2" stroke-linecap="round" />
+  <line x1="56" y1="18" x2="54" y2="18" stroke="#F6E05E" stroke-width="2" stroke-linecap="round" />
+
+  <!-- Sprout Main Stem -->
+  <path d="M32 48 C32 38 32 30 32 24" stroke="#FAF7F0" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- Left Agromet Leaf -->
+  <path d="M32 35 C23 35 17 28 18 20 C25 20 32 26 32 34 Z" fill="url(#kmLeafGrad)"/>
+
+  <!-- Right Agromet Leaf with Golden Amber tone -->
+  <path d="M32 27 C41 25 45 18 40 12 C34 13 32 20 32 26 Z" fill="#FEEBC8"/>
+
+  <!-- Raindrop of Intelligence -->
+  <path d="M20 42 C18 42 16.5 40.5 16.5 39 C16.5 37.5 20 34 20 34 C20 34 23.5 37.5 23.5 39 C23.5 40.5 22 42 20 42 Z" fill="#63B3ED"/>
 </svg>
