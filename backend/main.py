@@ -38,11 +38,11 @@ app = FastAPI(
     lifespan=lifespan
 )
 
-# CORS Middleware to allow React Frontend connectivity
+# CORS Middleware to allow React Frontend connectivity across local and Vercel deployments
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
-    allow_credentials=True,
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
