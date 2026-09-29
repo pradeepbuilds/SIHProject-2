@@ -1,0 +1,94 @@
+/* KrishiMitra Design System Tokens */
+:root {
+  /* surfaces */
+  --paper: #FAF7F0;
+  --surface: #FFFFFF;
+  --surface-2: #F3EEE2;
+  --border: #E0D8C5;
+  --border-strong: #C9BFA6;
+
+  /* ink */
+  --ink: #1F2A22;
+  --ink-2: #4A5650;
+  --ink-3: #6E7A72;
+
+  /* brand */
+  --green-700: #1F4D2A;
+  --green-600: #2F6B3B;
+  --green-100: #E3EFE4;
+  --ochre-600: #B27A12;
+  --ochre-100: #F6EAD0;
+  --soil-600: #7A5A3A;
+
+  /* status */
+  --info: #2B6CA3;
+  --warn: #B7791F;
+  --danger: #B3382C;
+  --ok: #2F6B3B;
+
+  /* shape */
+  --radius: 6px;
+  --radius-lg: 10px;
+  --space: 8px;
+  --shadow-1: 0 1px 2px rgba(31, 42, 34, 0.08);
+
+  /* data scales (colour-blind safe) */
+  --rain-0: #F7FBFF;
+  --rain-1: #C6DBEF;
+  --rain-2: #6BAED6;
+  --rain-3: #2171B5;
+  --rain-4: #08306B;
+
+  --heat-0: #FFFFB2;
+  --heat-1: #FECC5C;
+  --heat-2: #FD8D3C;
+  --heat-3: #F03B20;
+  --heat-4: #BD0026;
+
+  --div-neg: #2166AC;
+  --div-mid: #F7F7F7;
+  --div-pos: #B2182B;
+
+  /* Typography */
+  --font-sans: 'Source Sans 3', 'Noto Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-devanagari: 'Noto Sans Devanagari', 'Mangal', 'Nirmala UI', sans-serif;
+  --font-kannada: 'Noto Sans Kannada', 'Tunga', 'Kedage', sans-serif;
+}
+
+[data-theme="dark"] {
+  --paper: #141A16;
+  --surface: #1C241F;
+  --surface-2: #242E28;
+  --border: #334037;
+  --border-strong: #44544A;
+
+  --ink: #F2F5F3;
+  --ink-2: #BDC7C0;
+  --ink-3: #8C9990;
+
+  --green-700: #488B57;
+  --green-600: #357B43;
+  --green-100: #1B3322;
+  --ochre-600: #D89823;
+  --ochre-100: #3D2D0F;
+  --soil-600: #A8815B;
+
+  --info: #4A8FD2;
+  --warn: #D89823;
+  --danger: #D65A4C;
+  --ok: #488B57;
+
+  --shadow-1: 0 1px 3px rgba(0, 0, 0, 0.4);
+
+  --rain-0: #102438;
+  --rain-1: #1B456E;
+  --rain-2: #286DA6;
+  --rain-3: #3991DD;
+  --rain-4: #64B5F6;
+
+  --heat-0: #3A3215;
+  --heat-1: #695015;
+  --heat-2: #A3681D;
+  --heat-3: #CC4524;
+  --heat-4: #E53935;
+}

@@ -1,0 +1,30 @@
+region_id: ka-tumakuru
+id_prefix: PNC-KA # legacy prefix kept so existing Tumakuru IDs do not change
+state: Karnataka
+district: Tumakuru
+agro_climatic_zone: "Southern dry / semi-arid plateau"
+languages: [en, kn, hi]
+main_crops: [ragi, groundnut, coconut, paddy]
+horizon_days: {min: 1, max: 5}
+data_mode:
+  boundaries_district: real
+  boundaries_sub_units: illustrative
+  terrain: synthetic
+  weather: synthetic_calibrated
+boundary:
+  district_geojson: regions/data/ka-tumakuru/district.geojson
+  source: "KSRSAC / geoBoundaries ADM2 Karnataka"
+  license: "Open Data Commons Open Database License (ODbL)"
+  attribution: "Karnataka State Remote Sensing Applications Centre (KSRSAC)"
+  sub_units: {blocks: 10, panchayats_per_block: [8, 14], seed: 42}
+climatology:
+  source: "IMD Climatological Normals (1981-2010) & NASA POWER Agrometeorology"
+  tmax_c: [29.5, 32.1, 35.2, 36.4, 34.8, 30.5, 28.7, 28.5, 29.1, 29.3, 28.2, 28.0]
+  tmin_c: [16.2, 17.8, 20.4, 22.3, 22.1, 20.8, 20.1, 19.9, 19.8, 19.5, 18.0, 16.1]
+  rain_mm: [2.1, 4.5, 14.2, 42.0, 88.5, 68.2, 85.0, 92.4, 145.0, 152.0, 48.0, 12.0]
+  wet_day_prob: [0.03, 0.05, 0.10, 0.25, 0.40, 0.35, 0.42, 0.45, 0.55, 0.52, 0.28, 0.08]
+generator:
+  lapse_rate_c_per_km: 6.5
+  orographic_rain_factor: 0.15
+  events_per_year: {heavy_rain: 3, heatwave: 1, dry_spell: 1, cold_snap: 0}
+alert_thresholds: {heavy_rain_mm: 50, heat_c: 38, cold_c: 6, dry_spell_days: 5}

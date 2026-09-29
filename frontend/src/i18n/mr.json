@@ -1,0 +1,93 @@
+{
+  "_review_status": "unreviewed",
+  "lang": "mr",
+  "app_name": "कृषी मित्र",
+  "tagline": "प्रत्येक ग्रामपंचायतीसाठी हवामान बुद्धिमत्ता.",
+  "illustrative_boundaries_notice": "मार्गदर्शक उप-जिल्हा सीमा. जिल्ह्याची बाह्यरेषा अधिकृत स्त्रोतावरून आहे.",
+  "translation_pending_review": "अनुवाद मूळ भाषिकांच्या पुनरावलोकनाधीन आहे",
+  "nav": {
+    "map": "नकाशा",
+    "insights": "आकडेवारी",
+    "advisories": "कृषी सल्ला",
+    "compare": "तुलना",
+    "method": "पद्धती",
+    "bulletin": "कृषी बुलेटिन"
+  },
+  "view": {
+    "farmer": "शेतकरी दृश्य",
+    "officer": "अधिकारी दृश्य"
+  },
+  "theme": {
+    "light": "लाईट",
+    "dark": "डार्क"
+  },
+  "map_controls": {
+    "mode_coarse": "तालुका अंदाज",
+    "mode_downscaled": "कृषी मित्र स्थानिक अंदाज",
+    "mode_difference": "फरक (स्थानिक - तालुका)",
+    "select_variable": "हवामान घटक",
+    "select_region": "जिल्हा",
+    "select_date": "तारीख",
+    "scenarios_label": "हवामान परिस्थिती (सिंथेटिक):"
+  },
+  "farmer": {
+    "headline_rain_unlikely": "{{date}} रोजी पावसाची शक्यता नाही.",
+    "headline_rain_possible": "पावसाची शक्यता आहे (सुमारे {{p}}%).",
+    "headline_rain_likely": "पाऊस पडण्याची दाट शक्यता आहे (सुमारे {{p}}%). सुमारे {{p50}} मिमी, मुसळधार झाल्यास {{p90}} मिमी पर्यंत अंदाज.",
+    "headline_temp": "दिवसाचे कमाल तापमान सुमारे {{tmax}} °C (संभाव्य {{p10}} ते {{p90}} °C दरम्यान).",
+    "five_day_strip": "५-दिवसीय ग्रामपंचायत हवामान अंदाज",
+    "advisories_title": "उपयुक्त कृषी सल्ला",
+    "crop_label": "पीक:",
+    "why_differs": "हे तालुका अंदाजापेक्षा वेगळे का आहे?",
+    "why_rule": "हा सल्ला का दिला गेला?",
+    "copy_sms": "एसएमएस कॉपी करा",
+    "print_bulletin": "१-पानाचे बुलेटिन प्रिंट करा",
+    "sms_copied": "एसएमएस मजकूर क्लिपबोर्डवर कॉपी झाला!"
+  },
+  "officer": {
+    "table_title": "ग्रामपंचायत हवामान आणि इशारा तक्ता",
+    "alerts_title": "सक्रिय इशारे आणि धोके",
+    "panchayat_col": "ग्रामपंचायत",
+    "block_col": "तालुका",
+    "rainfall_col": "पाऊस (मिमी)",
+    "rain_prob_col": "पाऊस शक्यता (%)",
+    "tmax_col": "कमाल (°C)",
+    "tmin_col": "किमान (°C)",
+    "alert_level_col": "इशारा पातळी",
+    "confidence_col": "विश्वासार्हता",
+    "export_csv": "CSV निर्यात",
+    "filter_placeholder": "ग्रामपंचायत शोधा...",
+    "full_metrics_block": "मॉडेल अंदाज (P10 / P50 / P90)"
+  },
+  "insights": {
+    "title": "हवामान आणि मशीन लर्निंग विश्लेषण",
+    "kpi_mean_rain": "सरासरी ५-दिवसांचा पाऊस",
+    "kpi_max_rain": "कमाल ५-दिवसांचा पाऊस",
+    "kpi_alerts": "इशारा असलेल्या ग्रामपंचायती",
+    "kpi_advisories": "सक्रिय कृषी सल्ले",
+    "kpi_improvement": "अंदाजात सुधारणा",
+    "kpi_coverage": "८०% अंदाज अचूकता",
+    "chart_timeline": "अंदाज विरूद्ध प्रत्यक्ष निरीक्षण",
+    "chart_evolution": "अंदाज अचूकता प्रगती (T-5 ते T-1)",
+    "chart_trend": "३०-दिवसांचा कल आणि हवामान तफावत",
+    "chart_skill": "लीड टाइम विरूद्ध मॉडेल अचूकता (दिवस १-५)",
+    "chart_calibration": "अनिश्चितता कॅलिब्रेशन आणि विश्वासार्हता",
+    "chart_spatial": "स्थानिक त्रुटी नकाशा",
+    "chart_features": "मॉडेल घटक प्रभाव (गेन)",
+    "chart_outlook": "५-दिवसीय तालुका पाऊस अंदाज",
+    "view_table": "तक्त्याच्या स्वरूपात पहा",
+    "view_chart": "आलेख पहा",
+    "export_csv": "डेटा डाउनलोड (CSV)"
+  },
+  "confidence": {
+    "low": "विश्वसनीय अंदाज",
+    "medium": "मध्यम विश्वास",
+    "high": "कमी विश्वास — कृपया उद्या पुन्हा तपासा"
+  },
+  "data_mode_badges": {
+    "boundaries_district": "अधिकृत जिल्हा सीमा",
+    "boundaries_sub_units": "मार्गदर्शक ग्रामपंचायती",
+    "terrain": "कॅलिब्रेटेड डीईएम",
+    "weather": "सिंथेटिक हवामान डेटा"
+  }
+}

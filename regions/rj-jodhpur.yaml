@@ -1,0 +1,30 @@
+region_id: rj-jodhpur
+id_prefix: PNC-RJ
+state: Rajasthan
+district: Jodhpur
+agro_climatic_zone: "Western dry zone / Arid Thar desert margin"
+languages: [en, hi]
+main_crops: [bajra, moong, guar, mustard]
+horizon_days: {min: 1, max: 5}
+data_mode:
+  boundaries_district: real
+  boundaries_sub_units: illustrative
+  terrain: synthetic
+  weather: synthetic_calibrated
+boundary:
+  district_geojson: regions/data/rj-jodhpur/district.geojson
+  source: "State Remote Sensing Application Centre (SRSAC) / geoBoundaries ADM2"
+  license: "Open Data Commons Open Database License (ODbL)"
+  attribution: "State Remote Sensing Application Centre Jodhpur (SRSAC)"
+  sub_units: {blocks: 10, panchayats_per_block: [10, 16], seed: 303}
+climatology:
+  source: "IMD Jodhpur Observatory Normals & CAZRI Agromet Advisory"
+  tmax_c: [24.8, 28.2, 34.1, 39.5, 42.6, 41.2, 36.4, 34.2, 35.8, 36.2, 31.5, 26.5]
+  tmin_c: [9.8, 12.5, 18.2, 23.8, 28.1, 29.2, 27.5, 26.0, 25.1, 20.4, 14.8, 10.5]
+  rain_mm: [3.2, 4.0, 3.5, 5.2, 10.5, 35.0, 125.0, 140.0, 48.0, 8.5, 2.5, 1.8]
+  wet_day_prob: [0.03, 0.04, 0.03, 0.05, 0.08, 0.20, 0.45, 0.48, 0.22, 0.05, 0.02, 0.02]
+generator:
+  lapse_rate_c_per_km: 6.0
+  orographic_rain_factor: 0.02
+  events_per_year: {heavy_rain: 1, heatwave: 6, dry_spell: 4, cold_snap: 1}
+alert_thresholds: {heavy_rain_mm: 40, heat_c: 44, cold_c: 7, dry_spell_days: 10}

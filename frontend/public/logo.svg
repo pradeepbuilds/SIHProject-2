@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 48" width="240" height="48">
+  <!-- Sprout Icon -->
+  <g transform="translate(6, 4)">
+    <rect width="40" height="40" rx="10" fill="#1F4D2A"/>
+    <!-- Sprout Stem -->
+    <path d="M20 32 C20 23 20 18 20 14" stroke="#FAF7F0" stroke-width="3" stroke-linecap="round"/>
+    <!-- Left Leaf -->
+    <path d="M20 22 C14 22 10 17 11 12 C16 12 20 16 20 21 Z" fill="#E3EFE4"/>
+    <!-- Right Leaf -->
+    <path d="M20 17 C26 16 29 11 26 7 C22 8 20 12 20 16 Z" fill="#F6EAD0"/>
+  </g>
+  <!-- Wordmark -->
+  <text x="56" y="27" font-family="Source Sans 3, system-ui, sans-serif" font-size="20" font-weight="700" fill="#1F4D2A" letter-spacing="-0.3">Krishi<tspan fill="#B27A12">Mitra</tspan></text>
+  <text x="56" y="40" font-family="Source Sans 3, system-ui, sans-serif" font-size="10" font-weight="500" fill="#4A5650" letter-spacing="0.2">WEATHER INTELLIGENCE</text>
+</svg>

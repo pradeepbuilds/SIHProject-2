@@ -1,0 +1,30 @@
+# advisory/messages/en.yaml
+_review_status: reviewed
+language: en
+
+titles:
+  heavy_rain_title: "Heavy Rainfall Advisory"
+  irrigation_title: "Irrigation Scheduling Advisory"
+  heat_stress_title: "Heat Stress Advisory"
+  cold_risk_title: "Cold Wave & Frost Risk Advisory"
+  waterlogging_title: "Waterlogging & Field Drainage Watch"
+  spraying_title: "Foliar Spraying Operation Advisory"
+  sowing_title: "Sowing & Seedbed Moisture Advisory"
+  normal_weather_title: "General Crop Advisory"
+
+messages:
+  heavy_rain_msg: "Heavy rainfall (>= {heavy_rain_mm}mm) expected within 24h ({rain_probability_pct}% probability). Consider delaying irrigation; check drainage for low-lying fields."
+  irrigation_msg: "Low rainfall and dry spell detected ({days_since_last_rain} days without rain). Consider scheduling irrigation if soil moisture is low."
+  heat_stress_msg: "Forecast max temperature exceeds the heat-stress threshold for this crop's {stage_name} stage ({crop_heat_max}°C)."
+  cold_risk_msg: "Minimum temperature dropping to {tmin_p50}°C (at or below critical threshold of {cold_c}°C). High risk of cold stress or frost."
+  waterlogging_msg: "Cumulative 3-day rainfall reached {rain_3d_sum} mm. High risk of waterlogging; inspect bunds and open drainage furrows."
+  spraying_avoid_msg: "Rain probability is elevated ({rain_probability_pct}%). Avoid foliar nutrient sprays and pesticide applications as wash-off risk is high."
+  sowing_window_msg: "Adequate cumulative rainfall ({rain_7d_sum} mm) provides good soil moisture for field operations and sowing."
+  normal_weather_msg: "Normal meteorological conditions expected. Standard crop management practices recommended."
+
+confidence_phrases:
+  low: "Confident forecast"
+  medium: "Fairly confident"
+  high: "Forecast is uncertain; check again tomorrow."
+
+disclaimer: "Illustrative advisory rules. Validate thresholds with your local KVK / agricultural university before real use."

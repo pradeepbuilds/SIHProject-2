@@ -1,0 +1,440 @@
+{
+  "_metadata": {
+    "region_id": "rj-jodhpur",
+    "evaluation_type": "spatial_holdout",
+    "train_locations_count": 82,
+    "test_locations_count": 25,
+    "total_test_rows": 45625,
+    "is_synthetic": true,
+    "note": "Generator uses static terrain features as inputs; skill reflects the synthetic world, not real-world accuracy."
+  },
+  "temperature_max": {
+    "baseline_block_replication": {
+      "mae": 1.1295,
+      "rmse": 1.3935,
+      "bias": -0.8637,
+      "r": 0.9814,
+      "r2": 0.9394
+    },
+    "ml": {
+      "mae": 0.6967,
+      "rmse": 0.8809,
+      "bias": -0.0263,
+      "r": 0.9878,
+      "r2": 0.9758
+    },
+    "improvement": {
+      "mae_reduction_pct": 38.32,
+      "rmse_reduction_pct": 36.79,
+      "beats_baseline": true
+    },
+    "calibration": {
+      "empirical_coverage_80": 0.7865,
+      "target_coverage": 0.8,
+      "tail_rate_p10": 0.0984,
+      "tail_rate_p90": 0.1151,
+      "verdict": "Well-calibrated: the 80% interval captured 78.7% of observations.",
+      "by_horizon": {
+        "1": {
+          "coverage": 0.7865,
+          "target": 0.8,
+          "count": 9125
+        },
+        "2": {
+          "coverage": 0.7865,
+          "target": 0.8,
+          "count": 9125
+        },
+        "3": {
+          "coverage": 0.7865,
+          "target": 0.8,
+          "count": 9125
+        },
+        "4": {
+          "coverage": 0.7865,
+          "target": 0.8,
+          "count": 9125
+        },
+        "5": {
+          "coverage": 0.7865,
+          "target": 0.8,
+          "count": 9125
+        }
+      }
+    },
+    "by_horizon": {
+      "1": {
+        "baseline": {
+          "mae": 1.1295,
+          "rmse": 1.3935,
+          "bias": -0.8637,
+          "r": 0.9814,
+          "r2": 0.9394
+        },
+        "ml": {
+          "mae": 0.6967,
+          "rmse": 0.8809,
+          "bias": -0.0263,
+          "r": 0.9878,
+          "r2": 0.9758
+        }
+      },
+      "2": {
+        "baseline": {
+          "mae": 1.1295,
+          "rmse": 1.3935,
+          "bias": -0.8637,
+          "r": 0.9814,
+          "r2": 0.9394
+        },
+        "ml": {
+          "mae": 0.6967,
+          "rmse": 0.8809,
+          "bias": -0.0263,
+          "r": 0.9878,
+          "r2": 0.9758
+        }
+      },
+      "3": {
+        "baseline": {
+          "mae": 1.1295,
+          "rmse": 1.3935,
+          "bias": -0.8637,
+          "r": 0.9814,
+          "r2": 0.9394
+        },
+        "ml": {
+          "mae": 0.6967,
+          "rmse": 0.8809,
+          "bias": -0.0263,
+          "r": 0.9878,
+          "r2": 0.9758
+        }
+      },
+      "4": {
+        "baseline": {
+          "mae": 1.1295,
+          "rmse": 1.3935,
+          "bias": -0.8637,
+          "r": 0.9814,
+          "r2": 0.9394
+        },
+        "ml": {
+          "mae": 0.6967,
+          "rmse": 0.8809,
+          "bias": -0.0263,
+          "r": 0.9878,
+          "r2": 0.9758
+        }
+      },
+      "5": {
+        "baseline": {
+          "mae": 1.1295,
+          "rmse": 1.3935,
+          "bias": -0.8637,
+          "r": 0.9814,
+          "r2": 0.9394
+        },
+        "ml": {
+          "mae": 0.6967,
+          "rmse": 0.8809,
+          "bias": -0.0263,
+          "r": 0.9878,
+          "r2": 0.9758
+        }
+      }
+    }
+  },
+  "temperature_min": {
+    "baseline_block_replication": {
+      "mae": 0.983,
+      "rmse": 1.2165,
+      "bias": -0.6945,
+      "r": 0.9898,
+      "r2": 0.9696
+    },
+    "ml": {
+      "mae": 0.6366,
+      "rmse": 0.799,
+      "bias": -0.0095,
+      "r": 0.9934,
+      "r2": 0.9869
+    },
+    "improvement": {
+      "mae_reduction_pct": 35.24,
+      "rmse_reduction_pct": 34.32,
+      "beats_baseline": true
+    },
+    "calibration": {
+      "empirical_coverage_80": 0.786,
+      "target_coverage": 0.8,
+      "tail_rate_p10": 0.0991,
+      "tail_rate_p90": 0.115,
+      "verdict": "Well-calibrated: the 80% interval captured 78.6% of observations.",
+      "by_horizon": {
+        "1": {
+          "coverage": 0.786,
+          "target": 0.8,
+          "count": 9125
+        },
+        "2": {
+          "coverage": 0.786,
+          "target": 0.8,
+          "count": 9125
+        },
+        "3": {
+          "coverage": 0.786,
+          "target": 0.8,
+          "count": 9125
+        },
+        "4": {
+          "coverage": 0.786,
+          "target": 0.8,
+          "count": 9125
+        },
+        "5": {
+          "coverage": 0.786,
+          "target": 0.8,
+          "count": 9125
+        }
+      }
+    },
+    "by_horizon": {
+      "1": {
+        "baseline": {
+          "mae": 0.983,
+          "rmse": 1.2165,
+          "bias": -0.6945,
+          "r": 0.9898,
+          "r2": 0.9696
+        },
+        "ml": {
+          "mae": 0.6366,
+          "rmse": 0.799,
+          "bias": -0.0095,
+          "r": 0.9934,
+          "r2": 0.9869
+        }
+      },
+      "2": {
+        "baseline": {
+          "mae": 0.983,
+          "rmse": 1.2165,
+          "bias": -0.6945,
+          "r": 0.9898,
+          "r2": 0.9696
+        },
+        "ml": {
+          "mae": 0.6366,
+          "rmse": 0.799,
+          "bias": -0.0095,
+          "r": 0.9934,
+          "r2": 0.9869
+        }
+      },
+      "3": {
+        "baseline": {
+          "mae": 0.983,
+          "rmse": 1.2165,
+          "bias": -0.6945,
+          "r": 0.9898,
+          "r2": 0.9696
+        },
+        "ml": {
+          "mae": 0.6366,
+          "rmse": 0.799,
+          "bias": -0.0095,
+          "r": 0.9934,
+          "r2": 0.9869
+        }
+      },
+      "4": {
+        "baseline": {
+          "mae": 0.983,
+          "rmse": 1.2165,
+          "bias": -0.6945,
+          "r": 0.9898,
+          "r2": 0.9696
+        },
+        "ml": {
+          "mae": 0.6366,
+          "rmse": 0.799,
+          "bias": -0.0095,
+          "r": 0.9934,
+          "r2": 0.9869
+        }
+      },
+      "5": {
+        "baseline": {
+          "mae": 0.983,
+          "rmse": 1.2165,
+          "bias": -0.6945,
+          "r": 0.9898,
+          "r2": 0.9696
+        },
+        "ml": {
+          "mae": 0.6366,
+          "rmse": 0.799,
+          "bias": -0.0095,
+          "r": 0.9934,
+          "r2": 0.9869
+        }
+      }
+    }
+  },
+  "rainfall": {
+    "baseline_block_replication": {
+      "mae": 1.5718,
+      "rmse": 5.5352,
+      "bias": -0.2652,
+      "r": 0.1673,
+      "r2": -0.2881
+    },
+    "ml": {
+      "mae": 1.531,
+      "rmse": 4.5578,
+      "bias": 0.0032,
+      "r": 0.3586,
+      "r2": 0.1266
+    },
+    "improvement": {
+      "mae_reduction_pct": 2.6,
+      "rmse_reduction_pct": 17.66,
+      "beats_baseline": true
+    },
+    "hurdle_report": {
+      "decision_threshold": 0.35,
+      "rain_day_mm": 1.0,
+      "brier_score": 0.0768,
+      "baseline_brier_score": 0.1129,
+      "ml_test": {
+        "precision": 0.4251,
+        "recall": 0.4985,
+        "f1": 0.4589,
+        "accuracy": 0.8679
+      },
+      "baseline_test": {
+        "precision": 0.3644,
+        "recall": 0.3239,
+        "f1": 0.343,
+        "accuracy": 0.8606
+      }
+    },
+    "calibration": {
+      "empirical_coverage_80": 0.3037,
+      "target_coverage": 0.8,
+      "tail_rate_p10": 0.6842,
+      "tail_rate_p90": 0.0122,
+      "verdict": "Under-covered: the 80% interval captured 30.4% of observations.",
+      "by_horizon": {
+        "1": {
+          "coverage": 0.3037,
+          "target": 0.8,
+          "count": 9125
+        },
+        "2": {
+          "coverage": 0.3037,
+          "target": 0.8,
+          "count": 9125
+        },
+        "3": {
+          "coverage": 0.3037,
+          "target": 0.8,
+          "count": 9125
+        },
+        "4": {
+          "coverage": 0.3037,
+          "target": 0.8,
+          "count": 9125
+        },
+        "5": {
+          "coverage": 0.3037,
+          "target": 0.8,
+          "count": 9125
+        }
+      }
+    },
+    "by_horizon": {
+      "1": {
+        "baseline": {
+          "mae": 1.5718,
+          "rmse": 5.5352,
+          "bias": -0.2652,
+          "r": 0.1673,
+          "r2": -0.2881
+        },
+        "ml": {
+          "mae": 1.531,
+          "rmse": 4.5578,
+          "bias": 0.0032,
+          "r": 0.3586,
+          "r2": 0.1266
+        }
+      },
+      "2": {
+        "baseline": {
+          "mae": 1.5718,
+          "rmse": 5.5352,
+          "bias": -0.2652,
+          "r": 0.1673,
+          "r2": -0.2881
+        },
+        "ml": {
+          "mae": 1.531,
+          "rmse": 4.5578,
+          "bias": 0.0032,
+          "r": 0.3586,
+          "r2": 0.1266
+        }
+      },
+      "3": {
+        "baseline": {
+          "mae": 1.5718,
+          "rmse": 5.5352,
+          "bias": -0.2652,
+          "r": 0.1673,
+          "r2": -0.2881
+        },
+        "ml": {
+          "mae": 1.531,
+          "rmse": 4.5578,
+          "bias": 0.0032,
+          "r": 0.3586,
+          "r2": 0.1266
+        }
+      },
+      "4": {
+        "baseline": {
+          "mae": 1.5718,
+          "rmse": 5.5352,
+          "bias": -0.2652,
+          "r": 0.1673,
+          "r2": -0.2881
+        },
+        "ml": {
+          "mae": 1.531,
+          "rmse": 4.5578,
+          "bias": 0.0032,
+          "r": 0.3586,
+          "r2": 0.1266
+        }
+      },
+      "5": {
+        "baseline": {
+          "mae": 1.5718,
+          "rmse": 5.5352,
+          "bias": -0.2652,
+          "r": 0.1673,
+          "r2": -0.2881
+        },
+        "ml": {
+          "mae": 1.531,
+          "rmse": 4.5578,
+          "bias": 0.0032,
+          "r": 0.3586,
+          "r2": 0.1266
+        }
+      }
+    }
+  }
+}

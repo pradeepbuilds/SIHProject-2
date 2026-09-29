@@ -1,0 +1,50 @@
+{
+  "model_name": "rainfall",
+  "region_id": "pb-ludhiana",
+  "library_versions": {
+    "pandas": "3.0.3",
+    "numpy": "2.4.4",
+    "scikit-learn": "1.8.0",
+    "lightgbm": "4.7.0",
+    "joblib": "1.5.3",
+    "shapely": "2.1.2"
+  },
+  "features": [
+    "horizon_days",
+    "coarse_temp_max_c",
+    "coarse_temp_min_c",
+    "coarse_rainfall_mm",
+    "coarse_humidity_pct",
+    "aspect",
+    "distance_to_water_km",
+    "elevation",
+    "ndvi",
+    "ndwi",
+    "slope",
+    "land_cover_class",
+    "soil_texture_class"
+  ],
+  "numeric_features": [
+    "horizon_days",
+    "coarse_temp_max_c",
+    "coarse_temp_min_c",
+    "coarse_rainfall_mm",
+    "coarse_humidity_pct",
+    "aspect",
+    "distance_to_water_km",
+    "elevation",
+    "ndvi",
+    "ndwi",
+    "slope"
+  ],
+  "categorical_features": [
+    "land_cover_class",
+    "soil_texture_class"
+  ],
+  "train_locations_hash": "41177f32b7e3",
+  "train_locations_count": 68,
+  "trained_at": "2026-09-28T06:22:24.116854+00:00",
+  "n_jobs": 2,
+  "model_type": "hurdle_classifier_and_quantile_amount",
+  "rain_day_mm": 1.0
+}

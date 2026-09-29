@@ -1,0 +1,93 @@
+{
+  "_review_status": "reviewed",
+  "lang": "en",
+  "app_name": "KrishiMitra",
+  "tagline": "Weather intelligence for every panchayat.",
+  "illustrative_boundaries_notice": "Illustrative sub-district boundaries. District outline is official-source.",
+  "translation_pending_review": "Translation pending native-speaker review",
+  "nav": {
+    "map": "Map",
+    "insights": "Insights",
+    "advisories": "Advisories",
+    "compare": "Compare",
+    "method": "Method",
+    "bulletin": "Bulletin"
+  },
+  "view": {
+    "farmer": "Farmer View",
+    "officer": "Officer View"
+  },
+  "theme": {
+    "light": "Light",
+    "dark": "Dark"
+  },
+  "map_controls": {
+    "mode_coarse": "Block forecast",
+    "mode_downscaled": "KrishiMitra local estimate",
+    "mode_difference": "Difference",
+    "select_variable": "Variable",
+    "select_region": "District",
+    "select_date": "Target Date",
+    "scenarios_label": "Weather Scenarios (Synthetic):"
+  },
+  "farmer": {
+    "headline_rain_unlikely": "Rain is unlikely on {{date}}.",
+    "headline_rain_possible": "There is a chance of rain (about {{p}}%).",
+    "headline_rain_likely": "Rain is likely (about {{p}}%). Expect around {{p50}} mm, up to {{p90}} mm if it turns heavy.",
+    "headline_temp": "Daytime high around {{tmax}} °C (likely between {{p10}} and {{p90}} °C).",
+    "five_day_strip": "5-Day Panchayat Forecast",
+    "advisories_title": "Actionable Crop Advisories",
+    "crop_label": "Crop:",
+    "why_differs": "Why this differs from the block forecast",
+    "why_rule": "Why was this advisory issued?",
+    "copy_sms": "Copy SMS Text",
+    "print_bulletin": "Print 1-Page Bulletin",
+    "sms_copied": "SMS text copied to clipboard!"
+  },
+  "officer": {
+    "table_title": "Panchayat Weather & Alert Matrix",
+    "alerts_title": "Active Risk & Alert Feed",
+    "panchayat_col": "Panchayat",
+    "block_col": "Block",
+    "rainfall_col": "Rainfall (mm)",
+    "rain_prob_col": "Rain Prob (%)",
+    "tmax_col": "High (°C)",
+    "tmin_col": "Low (°C)",
+    "alert_level_col": "Alert Level",
+    "confidence_col": "Confidence",
+    "export_csv": "Export CSV",
+    "filter_placeholder": "Filter panchayats...",
+    "full_metrics_block": "Diagnostic Model Quantiles (P10 / P50 / P90)"
+  },
+  "insights": {
+    "title": "Meteorological & ML Downscaling Analytics",
+    "kpi_mean_rain": "Mean 5-Day Rainfall",
+    "kpi_max_rain": "Peak 5-Day Rainfall",
+    "kpi_alerts": "Panchayats in Alert",
+    "kpi_advisories": "Advisories Active",
+    "kpi_improvement": "ML Skill Gain vs Coarse",
+    "kpi_coverage": "80% Interval Coverage",
+    "chart_timeline": "Forecast vs Observed Timeline",
+    "chart_evolution": "Forecast Convergence (T-5 to T-1)",
+    "chart_trend": "30-Day Trend & Climatology Anomaly",
+    "chart_skill": "Downscaling Skill vs Lead Time (Horizon 1-5)",
+    "chart_calibration": "Uncertainty Calibration & Reliability",
+    "chart_spatial": "Spatial Error & Holdout Verification",
+    "chart_features": "Model Feature Attribution (Gain)",
+    "chart_outlook": "5-Day Block Rainfall Outlook",
+    "view_table": "View as table",
+    "view_chart": "View as chart",
+    "export_csv": "Export Data (CSV)"
+  },
+  "confidence": {
+    "low": "Confident forecast",
+    "medium": "Fairly confident",
+    "high": "Low confidence — check again tomorrow"
+  },
+  "data_mode_badges": {
+    "boundaries_district": "Official Boundary",
+    "boundaries_sub_units": "Illustrative Panchayats",
+    "terrain": "Calibrated DEM",
+    "weather": "Synthetic-World Dataset"
+  }
+}

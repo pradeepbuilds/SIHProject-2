@@ -1,0 +1,93 @@
+{
+  "_review_status": "unreviewed",
+  "lang": "hi",
+  "app_name": "कृषि मित्र",
+  "tagline": "हर पंचायत के लिए मौसम की सटीक समझ।",
+  "illustrative_boundaries_notice": "उदाहरणात्मक उप-जिला सीमाएं। जिला सीमा आधिकारिक स्रोत से है।",
+  "translation_pending_review": "अनुवाद देशी वक्ता समीक्षा के अधीन है",
+  "nav": {
+    "map": "मानचित्र",
+    "insights": "आंकड़े एवं विश्लेषण",
+    "advisories": "कृषि सलाह",
+    "compare": "तुलना",
+    "method": "कार्यप्रणाली",
+    "bulletin": "कृषि बुलेटिन"
+  },
+  "view": {
+    "farmer": "किसान दृश्य",
+    "officer": "अधिकारी दृश्य"
+  },
+  "theme": {
+    "light": "लाइट",
+    "dark": "डार्क"
+  },
+  "map_controls": {
+    "mode_coarse": "ब्लॉक पूर्वानुमान",
+    "mode_downscaled": "कृषि मित्र स्थानीय अनुमान",
+    "mode_difference": "अंतर (स्थानीय - ब्लॉक)",
+    "select_variable": "मौसम चर",
+    "select_region": "जिला",
+    "select_date": "दिनांक",
+    "scenarios_label": "मौसम परिदृश्य (सिंथेटिक):"
+  },
+  "farmer": {
+    "headline_rain_unlikely": "{{date}} को बारिश की संभावना नहीं है।",
+    "headline_rain_possible": "बारिश की संभावना है (लगभग {{p}}%)।",
+    "headline_rain_likely": "बारिश की प्रबल संभावना है (लगभग {{p}}%)। लगभग {{p50}} मिमी, भारी होने पर {{p90}} मिमी तक की उम्मीद करें।",
+    "headline_temp": "दिन का अधिकतम तापमान लगभग {{tmax}} °C (संभावित {{p10}} से {{p90}} °C के बीच)।",
+    "five_day_strip": "5-दिवसीय पंचायत मौसम पूर्वानुमान",
+    "advisories_title": "उपयोगी कृषि सलाह",
+    "crop_label": "फसल:",
+    "why_differs": "यह ब्लॉक पूर्वानुमान से क्यों भिन्न है?",
+    "why_rule": "यह सलाह क्यों जारी की गई?",
+    "copy_sms": "एसएमएस कॉपी करें",
+    "print_bulletin": "1-पेज बुलेटिन प्रिंट करें",
+    "sms_copied": "एसएमएस पाठ क्लिपबोर्ड पर कॉपी हो गया!"
+  },
+  "officer": {
+    "table_title": "पंचायत मौसम एवं चेतावनी तालिका",
+    "alerts_title": "सक्रिय जोखिम एवं चेतावनी फीड",
+    "panchayat_col": "पंचायत",
+    "block_col": "ब्लॉक",
+    "rainfall_col": "वर्षा (मिमी)",
+    "rain_prob_col": "वर्षा संभावना (%)",
+    "tmax_col": "उच्चतम (°C)",
+    "tmin_col": "निम्नतम (°C)",
+    "alert_level_col": "चेतावनी स्तर",
+    "confidence_col": "विश्वसनीयता",
+    "export_csv": "सीएसवी निर्यात",
+    "filter_placeholder": "पंचायत खोजें...",
+    "full_metrics_block": "मॉडल अनुमान (P10 / P50 / P90)"
+  },
+  "insights": {
+    "title": "मौसम एवं मशीन लर्निंग विश्लेषण",
+    "kpi_mean_rain": "औसत 5-दिवसीय वर्षा",
+    "kpi_max_rain": "अधिकतम 5-दिवसीय वर्षा",
+    "kpi_alerts": "अलर्ट में पंचायतें",
+    "kpi_advisories": "सक्रिय कृषि सलाह",
+    "kpi_improvement": "सटीकता में सुधार",
+    "kpi_coverage": "80% अंतराल कवरेज",
+    "chart_timeline": "पूर्वानुमान बनाम वास्तविक अवलोकन",
+    "chart_evolution": "पूर्वानुमान अभिसरण (T-5 से T-1)",
+    "chart_trend": "30-दिवसीय प्रवृत्ति एवं जलवायु विसंगति",
+    "chart_skill": "लीड टाइम बनाम मॉडल सटीकता (दिन 1-5)",
+    "chart_calibration": "अनिश्चितता अंशांकन एवं विश्वसनीयता",
+    "chart_spatial": "स्थानिक त्रुटि एवं सत्यापन",
+    "chart_features": "मॉडल कारक प्रभाव (गेन)",
+    "chart_outlook": "5-दिवसीय ब्लॉक वर्षा परिदृश्य",
+    "view_table": "तालिका के रूप में देखें",
+    "view_chart": "चार्ट के रूप में देखें",
+    "export_csv": "डेटा निर्यात (CSV)"
+  },
+  "confidence": {
+    "low": "विश्वसनीय पूर्वानुमान",
+    "medium": "मध्यम स्तर का विश्वास",
+    "high": "कम विश्वास — कृपया कल पुनः जांचें"
+  },
+  "data_mode_badges": {
+    "boundaries_district": "आधिकारिक सीमा",
+    "boundaries_sub_units": "उदाहरणात्मक पंचायतें",
+    "terrain": "अंशांकित डीईएम",
+    "weather": "सिंथेटिक मौसम डेटा"
+  }
+}

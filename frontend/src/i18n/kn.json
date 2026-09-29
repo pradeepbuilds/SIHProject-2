@@ -1,0 +1,93 @@
+{
+  "_review_status": "unreviewed",
+  "lang": "kn",
+  "app_name": "ಕೃಷಿ ಮಿತ್ರ",
+  "tagline": "ಪ್ರತಿ ಪಂಚಾಯಿತಿಗೆ ಹವಾಮಾನ ಜಾಣ್ಮೆ.",
+  "illustrative_boundaries_notice": "ಉದಾಹರಣಾತ್ಮಕ ಉಪ-ಜಿಲ್ಲಾ ಗಡಿಗಳು. ಜಿಲ್ಲಾ ಗಡಿಯು ಅಧಿಕೃತ ಮೂಲದ್ದಾಗಿದೆ.",
+  "translation_pending_review": "ಸ್ಥಳೀಯ ಭಾಷಿಕರ ಪರಿಶೀಲನೆ ಬಾಕಿಯಿದೆ",
+  "nav": {
+    "map": "ನಕ್ಷೆ",
+    "insights": "ವಿಶ್ಲೇಷಣೆ",
+    "advisories": "ಕೃಷಿ ಸಲಹೆಗಳು",
+    "compare": "ಹೋಲಿಕೆ",
+    "method": "ವಿಧಾನ",
+    "bulletin": "ಕೃಷಿ ಬುಲೆಟಿನ್"
+  },
+  "view": {
+    "farmer": "ರೈತ ನೋಟ",
+    "officer": "ಅಧಿಕಾರಿ ನೋಟ"
+  },
+  "theme": {
+    "light": "ಬೆಳಕು",
+    "dark": "ಕತ್ತಲೆ"
+  },
+  "map_controls": {
+    "mode_coarse": "ಬ್ಲಾಕ್ ಮುನ್ಸೂಚನೆ",
+    "mode_downscaled": "ಕೃಷಿ ಮಿತ್ರ ಸ್ಥಳೀಯ ಅಂದಾಜು",
+    "mode_difference": "ವ್ಯತ್ಯಾಸ",
+    "select_variable": "ಹವಾಮಾನ ಅಂಶ",
+    "select_region": "ಜಿಲ್ಲೆ",
+    "select_date": "ದಿನಾಂಕ",
+    "scenarios_label": "ಹವಾಮಾನ ಸನ್ನಿವೇಶಗಳು (ಕೃತಕ):"
+  },
+  "farmer": {
+    "headline_rain_unlikely": "{{date}} ರಂದು ಮಳೆಯಾಗುವ ಸಾಧ್ಯತೆ ಕಡಿಮೆ.",
+    "headline_rain_possible": "ಮಳೆಯಾಗುವ ಸಾಧ್ಯತೆಯಿದೆ (ಸುಮಾರು {{p}}%).",
+    "headline_rain_likely": "ಮಳೆಯಾಗುವ ಸಂಭವನೀಯತೆ ಹೆಚ್ಚು (ಸುಮಾರು {{p}}%). ಸುಮಾರು {{p50}} ಮಿಮೀ, ತೀವ್ರಗೊಂಡರೆ {{p90}} ಮಿಮೀ ವರೆಗೆ ನಿರೀಕ್ಷಿಸಿ.",
+    "headline_temp": "ಹಗಲಿನ ಗರಿಷ್ಠ ತಾಪಮಾನ ಸುಮಾರು {{tmax}} °C ({{p10}} ಮತ್ತು {{p90}} °C ನಡುವೆ).",
+    "five_day_strip": "5-ದಿನಗಳ ಪಂಚಾಯತ್ ಮುನ್ಸೂಚನೆ",
+    "advisories_title": "ಕಾರ್ಯಗತಗೊಳಿಸಬಹುದಾದ ಕೃಷಿ ಸಲಹೆಗಳು",
+    "crop_label": "ಬೆಳೆ:",
+    "why_differs": "ಇದು ಬ್ಲಾಕ್ ಮುನ್ಸೂಚನೆಗಿಂತ ಏಕೆ ಭಿನ್ನವಾಗಿದೆ?",
+    "why_rule": "ಈ ಸಲಹೆಯನ್ನು ಏಕೆ ನೀಡಲಾಗಿದೆ?",
+    "copy_sms": "ಎಸ್ಎಂಎಸ್ ಪಠ್ಯ ನಕಲಿಸಿ",
+    "print_bulletin": "1-ಪುಟದ ಬುಲೆಟಿನ್ ಮುದ್ರಿಸಿ",
+    "sms_copied": "ಎಸ್ಎಂಎಸ್ ಪಠ್ಯ ನಕಲಿಸಲಾಗಿದೆ!"
+  },
+  "officer": {
+    "table_title": "ಪಂಚಾಯತ್ ಹವಾಮಾನ ಮತ್ತು ಎಚ್ಚರಿಕೆ ಕೋಷ್ಟಕ",
+    "alerts_title": "ಸಕ್ರಿಯ ಎಚ್ಚರಿಕೆಗಳ ಪಟ್ಟಿ",
+    "panchayat_col": "ಪಂಚಾಯತ್",
+    "block_col": "ಬ್ಲಾಕ್",
+    "rainfall_col": "ಮಳೆ (ಮಿಮೀ)",
+    "rain_prob_col": "ಮಳೆ ಸಂಭವನೀಯತೆ (%)",
+    "tmax_col": "ಗರಿಷ್ಠ (°C)",
+    "tmin_col": "ಕನಿಷ್ಠ (°C)",
+    "alert_level_col": "ಎಚ್ಚರಿಕೆ ಮಟ್ಟ",
+    "confidence_col": "ವಿಶ್ವಾಸಾರ್ಹತೆ",
+    "export_csv": "CSV ರಫ್ತು",
+    "filter_placeholder": "ಪಂಚಾಯತ್ ಹುಡುಕಿ...",
+    "full_metrics_block": "ಮಾದರಿ ಅಂದಾಜುಗಳು (P10 / P50 / P90)"
+  },
+  "insights": {
+    "title": "ಹವಾಮಾನ ಮತ್ತು ಯಂತ್ರ ಕಲಿಕೆ ವಿಶ್ಲೇಷಣೆ",
+    "kpi_mean_rain": "ಸರಾಸರಿ 5-ದಿನಗಳ ಮಳೆ",
+    "kpi_max_rain": "ಗರಿಷ್ಠ 5-ದಿನಗಳ ಮಳೆ",
+    "kpi_alerts": "ಎಚ್ಚರಿಕೆಯಲ್ಲಿರುವ ಪಂಚಾಯತ್‌ಗಳು",
+    "kpi_advisories": "ಸಕ್ರಿಯ ಕೃಷಿ ಸಲಹೆಗಳು",
+    "kpi_improvement": "ಸ್ಥಳೀಯ ನಿಖರತೆ ಸುಧಾರಣೆ",
+    "kpi_coverage": "80% ಮುನ್ಸೂಚನಾ ವ್ಯಾಪ್ತಿ",
+    "chart_timeline": "ಮುನ್ಸೂಚನೆ ಮತ್ತು ನೈಜ ವೀಕ್ಷಣೆ",
+    "chart_evolution": "ಮುನ್ಸೂಚನೆ ಪರಿವರ್ತನೆ (T-5 ರಿಂದ T-1)",
+    "chart_trend": "30-ದಿನಗಳ ಹವಾಮಾನ ಪ್ರವೃತ್ತಿ",
+    "chart_skill": "ಮುನ್ಸೂಚನಾ ಕೌಶಲ್ಯ (ದಿನ 1-5)",
+    "chart_calibration": "ಅನಿಶ್ಚಿತತೆ ಮಾಪನಾಂಕ ನಿರ್ಣಯ",
+    "chart_spatial": "ಪ್ರಾದೇಶಿಕ ದೋಷ ನಕ್ಷೆ",
+    "chart_features": "ಮಾದರಿ ಪ್ರಭಾವಕಾರಿ ಅಂಶಗಳು",
+    "chart_outlook": "5-ದಿನಗಳ ಬ್ಲಾಕ್ ಮಳೆ ಮುನ್ನೋಟ",
+    "view_table": "ಕೋಷ್ಟಕದ ರೂಪದಲ್ಲಿ ನೋಡಿ",
+    "view_chart": "ಚಿತ್ರದ ರೂಪದಲ್ಲಿ ನೋಡಿ",
+    "export_csv": "CSV ಡೌನ್‌ಲೋಡ್"
+  },
+  "confidence": {
+    "low": "ವಿಶ್ವಾಸಾರ್ಹ ಮುನ್ಸೂಚನೆ",
+    "medium": "ಮಧ್ಯಮ ವಿಶ್ವಾಸಾರ್ಹತೆ",
+    "high": "ಕಡಿಮೆ ವಿಶ್ವಾಸ — ದಯವಿಟ್ಟು ನಾಳೆ ಮರುಪರಿಶೀಲಿಸಿ"
+  },
+  "data_mode_badges": {
+    "boundaries_district": "ಅಧಿಕೃತ ಜಿಲ್ಲಾ ಗಡಿ",
+    "boundaries_sub_units": "ಉದಾಹರಣಾತ್ಮಕ ಪಂಚಾಯತ್",
+    "terrain": "ಮಾಪನಾಂಕಿತ ಡಿಇಎಂ",
+    "weather": "ಕೃತಕ ಹವಾಮಾನ ಡೇಟಾ"
+  }
+}

@@ -1,0 +1,28 @@
+# advisory/rules.yaml
+# Agricultural Advisory Rules for Hyper-Local Weather Downscaling
+rules:
+  - id: heavy_rainfall_v1
+    name: Heavy Rainfall Advisory
+    trigger: "rainfall_mm >= 50.0 and horizon_days <= 1"
+    max_uncertainty_label: medium
+    message: "Heavy rainfall (>=50mm) expected within 24h. Consider delaying irrigation; check drainage for low-lying fields."
+
+  - id: irrigation_suggestion_v1
+    name: Irrigation Scheduling Advisory
+    trigger: "rainfall_mm < 2.0 and days_since_last_rain >= 5"
+    max_uncertainty_label: high
+    message: "Low rainfall and dry spell detected. Consider scheduling irrigation if soil moisture is low."
+
+  - id: heat_stress_v1
+    name: Heat Stress Advisory
+    trigger: "temp_max_c >= heat_max_c and stage_name == 'flowering'"
+    max_uncertainty_label: medium
+    message: "Forecast max temperature exceeds the heat-stress threshold for this crop's flowering stage."
+
+  - id: general_weather_v1
+    name: General Crop Advisory
+    trigger: "True"
+    max_uncertainty_label: high
+    message: "Normal meteorological conditions expected. Standard crop management practices recommended."
+
+suppression_rule: "If uncertainty_label == 'high' (widest interval, least trustworthy), prefix message with '[Informational only — wide forecast uncertainty] ' instead of suppressing outright. Never apply this prefix or any downgrade to uncertainty_label == 'low', which is the most trustworthy case."

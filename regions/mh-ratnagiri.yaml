@@ -1,0 +1,30 @@
+region_id: mh-ratnagiri
+id_prefix: PNC-MH
+state: Maharashtra
+district: Ratnagiri
+agro_climatic_zone: "Western coastal plains and ghats (Konkan)"
+languages: [en, mr, hi]
+main_crops: [paddy, mango, cashew, coconut]
+horizon_days: {min: 1, max: 5}
+data_mode:
+  boundaries_district: real
+  boundaries_sub_units: illustrative
+  terrain: synthetic
+  weather: synthetic_calibrated
+boundary:
+  district_geojson: regions/data/mh-ratnagiri/district.geojson
+  source: "MRSAC / geoBoundaries ADM2 Maharashtra"
+  license: "Open Data Commons Open Database License (ODbL)"
+  attribution: "Maharashtra Remote Sensing Applications Centre (MRSAC)"
+  sub_units: {blocks: 9, panchayats_per_block: [10, 16], seed: 101}
+climatology:
+  source: "IMD Climatological Normals & NASA POWER Ratnagiri Station"
+  tmax_c: [30.4, 30.6, 31.8, 32.7, 33.2, 30.8, 29.2, 29.1, 29.8, 31.9, 32.5, 31.3]
+  tmin_c: [18.2, 18.9, 21.6, 24.3, 26.2, 24.9, 24.5, 24.3, 24.0, 23.6, 21.5, 19.3]
+  rain_mm: [0.5, 0.2, 1.1, 8.4, 82.5, 875.0, 1150.0, 680.0, 360.0, 125.0, 22.0, 2.5]
+  wet_day_prob: [0.01, 0.01, 0.02, 0.08, 0.30, 0.85, 0.95, 0.88, 0.65, 0.32, 0.10, 0.02]
+generator:
+  lapse_rate_c_per_km: 6.5
+  orographic_rain_factor: 0.35
+  events_per_year: {heavy_rain: 8, heatwave: 1, dry_spell: 1, cold_snap: 0}
+alert_thresholds: {heavy_rain_mm: 65, heat_c: 36, cold_c: 12, dry_spell_days: 7}

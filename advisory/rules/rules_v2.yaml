@@ -1,0 +1,68 @@
+# advisory/rules/rules_v2.yaml
+# Dynamic Agricultural Advisory Rules for KrishiMitra
+# Thresholds are mapped from regional configs or crop phenology
+
+rules:
+  - id: heavy_rainfall_hurdle
+    title_key: heavy_rain_title
+    message_key: heavy_rain_msg
+    severity: warning
+    min_confidence: medium
+    applies_to: all
+    when: "rain_probability >= 0.5 and rainfall_p90_mm >= heavy_rain_mm"
+
+  - id: irrigation_suggestion_hurdle
+    title_key: irrigation_title
+    message_key: irrigation_msg
+    severity: info
+    min_confidence: low
+    applies_to: all
+    when: "rain_probability < 0.2 and days_since_last_rain >= dry_spell_days"
+
+  - id: heat_stress_risk
+    title_key: heat_stress_title
+    message_key: heat_stress_msg
+    severity: warning
+    min_confidence: medium
+    applies_to: all
+    when: "tmax_p50 >= heat_c"
+
+  - id: cold_snap_risk
+    title_key: cold_risk_title
+    message_key: cold_risk_msg
+    severity: warning
+    min_confidence: medium
+    applies_to: all
+    when: "tmin_p50 <= cold_c"
+
+  - id: waterlogging_drainage
+    title_key: waterlogging_title
+    message_key: waterlogging_msg
+    severity: watch
+    min_confidence: medium
+    applies_to: all
+    when: "rain_3d_sum >= 70.0"
+
+  - id: spraying_window_avoid
+    title_key: spraying_title
+    message_key: spraying_avoid_msg
+    severity: watch
+    min_confidence: low
+    applies_to: all
+    when: "rain_probability >= 0.4"
+
+  - id: sowing_moisture_window
+    title_key: sowing_title
+    message_key: sowing_window_msg
+    severity: info
+    min_confidence: low
+    applies_to: all
+    when: "rain_7d_sum >= 30.0 and stage_name in ['sowing', 'vegetative', 'nursery']"
+
+  - id: normal_management_fallback
+    title_key: normal_weather_title
+    message_key: normal_weather_msg
+    severity: info
+    min_confidence: low
+    applies_to: all
+    when: "True"
